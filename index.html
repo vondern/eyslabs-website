@@ -7,207 +7,183 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-glow: #00d2ff;
-            --secondary-glow: #3a7bd5;
-            --accent-spring: #00ff88;
-            --text-main: #ffffff;
-            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            --primary-blue: #3b82f6;
+            --accent-green: #10b981;
+            --bg-deep: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text-dim: #94a3b8;
         }
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background: var(--bg-dark);
-            background: radial-gradient(circle at 50% -20%, #3b82f633 0%, #0f172a 100%);
-            color: var(--text-main);
+            background-color: var(--bg-deep);
+            background: radial-gradient(circle at top right, #1e293b 0%, #0f172a 100%);
+            color: #f1f5f9;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            overflow-x: hidden;
-        }
-
-        /* Arka plana canlılık katan hareketli ışıklar */
-        body::before {
-            content: "";
-            position: absolute;
-            width: 300%;
-            height: 300%;
-            background: conic-gradient(from 180deg at 50% 50%, #00d2ff33 0deg, #00ff8811 120deg, #3a7bd522 240deg, #00d2ff33 360deg);
-            animation: rotate 20s linear infinite;
-            z-index: -1;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 50px 40px;
-            border-radius: 32px;
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 45px 35px;
+            border-radius: 28px;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            max-width: 550px;
+            max-width: 500px;
             width: 90%;
             text-align: center;
         }
 
         h1 {
-            font-size: 3.5rem;
+            font-size: 3rem;
             font-weight: 800;
             margin: 0;
-            background: linear-gradient(to right, #00d2ff, #00ff88);
+            background: linear-gradient(to bottom right, #fff 30%, var(--primary-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: -2px;
+            letter-spacing: -1px;
         }
 
         .tagline {
-            color: #94a3b8;
-            font-size: 0.9rem;
-            letter-spacing: 4px;
+            color: var(--primary-blue);
+            font-size: 0.8rem;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            margin-bottom: 30px;
-            font-weight: 600;
-        }
-
-        /* Hizmetler Bölümü (Fiyakalı Cümleler) */
-        .services-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin: 35px 0;
-        }
-
-        .service-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 20px;
-            border-radius: 20px;
-            text-align: left;
-            transition: all 0.3s ease;
-        }
-
-        .service-card:hover {
-            background: rgba(255, 255, 255, 0.07);
-            border-color: var(--accent-spring);
-            transform: translateY(-5px);
-        }
-
-        .service-card h3 {
-            font-size: 0.85rem;
-            color: var(--accent-spring);
-            margin: 0 0 8px 0;
-            text-transform: uppercase;
-        }
-
-        .service-card p {
-            font-size: 0.75rem;
-            color: #cbd5e1;
-            margin: 0;
-            line-height: 1.4;
+            margin-bottom: 25px;
+            font-weight: 700;
+            opacity: 0.8;
         }
 
         .status-badge {
-            background: rgba(0, 255, 136, 0.1);
-            color: var(--accent-spring);
-            padding: 6px 16px;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--accent-green);
+            padding: 5px 12px;
             border-radius: 100px;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 700;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             margin-bottom: 20px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
         }
 
         .pulse-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--accent-spring);
+            width: 6px;
+            height: 6px;
+            background: var(--accent-green);
             border-radius: 50%;
-            box-shadow: 0 0 10px var(--accent-spring);
             animation: pulse 2s infinite;
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.5); opacity: 0.5; }
-            100% { transform: scale(1); opacity: 1; }
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 30px 0;
+        }
+
+        .service-card {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            padding: 18px;
+            border-radius: 18px;
+            text-align: left;
+            transition: border 0.3s;
+        }
+
+        .service-card:hover {
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+
+        .service-card h3 {
+            font-size: 0.8rem;
+            color: #fff;
+            margin: 0 0 5px 0;
+        }
+
+        .service-card p {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            margin: 0;
+            line-height: 1.4;
         }
 
         .btn-group {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
             margin-top: 20px;
         }
 
         .btn {
-            padding: 16px 30px;
-            border-radius: 16px;
+            padding: 14px;
+            border-radius: 14px;
             font-weight: 700;
             text-decoration: none;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            transition: all 0.2s;
+            font-size: 0.9rem;
         }
 
         .btn-wa {
-            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+            background: var(--primary-blue);
             color: white;
-            box-shadow: 0 10px 20px -5px rgba(37, 211, 102, 0.4);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
         }
 
         .btn-mail {
-            background: rgba(255, 255, 255, 0.05);
-            color: white;
+            background: rgba(255, 255, 255, 0.03);
+            color: #fff;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .btn:hover {
-            transform: scale(1.02);
+            transform: translateY(-2px);
             filter: brightness(1.1);
         }
 
         .footer {
-            margin-top: 40px;
+            margin-top: 35px;
             font-size: 0.7rem;
-            color: #64748b;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            padding-top: 25px;
+            color: var(--text-dim);
+            opacity: 0.6;
         }
 
         .floating-bot {
             position: fixed;
-            bottom: 40px;
-            right: 40px;
-            background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
-            width: 70px;
-            height: 70px;
-            border-radius: 24px;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-blue);
+            width: 60px;
+            height: 60px;
+            border-radius: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 32px;
-            box-shadow: 0 15px 30px rgba(0, 210, 255, 0.3);
+            font-size: 28px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
             animation: float 4s ease-in-out infinite;
             cursor: pointer;
+            text-decoration: none;
         }
 
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px) rotate(5deg); }
+            50% { transform: translateY(-10px); }
         }
 
         @media (max-width: 480px) {
             .services-grid { grid-template-columns: 1fr; }
-            h1 { font-size: 2.8rem; }
         }
     </style>
 </head>
@@ -220,37 +196,37 @@
         </div>
         
         <h1>EYSLabs</h1>
-        <div class="tagline">Next-Gen AI Labs</div>
+        <div class="tagline">Next-Gen AI Solutions</div>
 
-        <p style="color: #cbd5e1; font-weight: 500;">
-            Vi bringer fremtidens intelligens til din bedrift.
+        <p style="color: var(--text-dim); font-size: 0.95rem; margin-bottom: 5px;">
+            Fremtidens intelligens for din bedrift.
         </p>
 
         <div class="services-grid">
             <div class="service-card">
                 <h3>Timebestilling</h3>
-                <p>Intelligente avtaler og sømløs kundehåndtering med ELA.</p>
+                <p>Automatiserte avtaler og kundehåndtering.</p>
             </div>
             <div class="service-card">
                 <h3>Økonomi</h3>
-                <p>Presis utgiftshåndtering og AI-drevet økonomisk analyse.</p>
+                <p>AI-drevet analyse og utgiftshåndtering.</p>
             </div>
             <div class="service-card">
                 <h3>Feilsøking</h3>
-                <p>Avansert teknisk trouble-shooting og sanntids feilanalyse.</p>
+                <p>Teknisk trouble-shooting i sanntid.</p>
             </div>
             <div class="service-card">
                 <h3>AI-Support</h3>
-                <p>24/7 intelligent kundeservice som lærer av din drift.</p>
+                <p>Døgnåpen intelligent kundeservice.</p>
             </div>
         </div>
 
         <div class="btn-group">
             <a href="https://wa.me/4792942766" class="btn btn-wa">
-                <span>Snakk med ELA på WhatsApp</span>
+                Snakk med ELA på WhatsApp
             </a>
             <a href="mailto:vondern@gmail.com" class="btn btn-mail">
-                <span>Send oss en e-post</span>
+                Send oss en e-post
             </a>
         </div>
 
@@ -260,9 +236,7 @@
         </div>
     </div>
 
-    <a href="https://wa.me/4792942766" class="floating-bot">
-        🤖
-    </a>
+    <a href="https://wa.me/4792942766" class="floating-bot">🤖</a>
 
 </body>
 </html>
