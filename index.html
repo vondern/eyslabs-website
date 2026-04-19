@@ -55,6 +55,51 @@
             border-top: 1px solid #30363d;
             padding-top: 20px;
         }
+        .cta-button {
+        background-color: #58a6ff;
+        color: #0d1117;
+        padding: 15px 30px;
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: bold;
+        display: inline-block;
+        margin-top: 20px;
+        transition: transform 0.3s;
+    }
+    .cta-button:hover {
+        transform: scale(1.05);
+        background-color: #7ee787;
+    }
+    .chat-widget {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #58a6ff;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 4px 15px rgba(88, 166, 255, 0.4);
+        cursor: pointer;
+        animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+    }
+</style>
+
+<div class="demo-section">
+    <p style="font-size: 0.9rem; color: #8b949e; margin-top: 30px;">Vil du teste ELA?</p>
+    <a href="https://wa.me/SENIN_NUMARAN" class="cta-button">Snakk med ELA på WhatsApp</a>
+</div>
+
+<div class="chat-widget" onclick="window.location.href='https://wa.me/SENIN_NUMARAN'">
+    <span style="font-size: 30px;">🤖</span>
+</div>
     </style>
 </head>
 <body>
