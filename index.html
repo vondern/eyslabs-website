@@ -5,107 +5,177 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EYSLabs - ELA AI Solutions</title>
     <style>
+        :root {
+            --primary-blue: #58a6ff;
+            --success-green: #2ecc71;
+            --fb-blue: #1877F2;
+            --bg-dark: #0d1117;
+            --card-bg: rgba(22, 27, 34, 0.8);
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0d1117;
+            font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+            background: radial-gradient(circle at center, #161b22 0%, #0d1117 100%);
             color: #c9d1d9;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
             text-align: center;
-            overflow: hidden;
         }
+
         .container {
-            border: 1px solid #30363d;
-            padding: 50px;
-            border-radius: 15px;
-            background-color: #161b22;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-            max-width: 500px;
+            border: 1px solid rgba(48, 54, 61, 0.8);
+            padding: 40px 30px;
+            border-radius: 24px;
+            background-color: var(--card-bg);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            max-width: 450px;
+            width: 90%;
+            border: 1px solid rgba(88, 166, 255, 0.1);
         }
+
         h1 {
-            color: #58a6ff;
-            font-size: 3.5rem;
+            color: var(--primary-blue);
+            font-size: 3rem;
             margin: 0;
-            letter-spacing: 5px;
+            letter-spacing: -1px;
+            font-weight: 800;
+            text-shadow: 0 0 20px rgba(88, 166, 255, 0.3);
         }
+
         .tagline {
             color: #8b949e;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             margin-bottom: 30px;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
+            font-weight: 500;
         }
+
         .status-box {
-            background: rgba(126, 231, 135, 0.1);
-            border: 1px solid #238636;
-            padding: 10px;
-            border-radius: 5px;
+            background: rgba(46, 204, 113, 0.1);
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            padding: 8px 15px;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
             margin-bottom: 25px;
         }
-        .status-text {
-            color: #7ee787;
-            font-family: monospace;
-            font-size: 0.9rem;
+
+        .status-dot {
+            height: 8px;
+            width: 8px;
+            background-color: var(--success-green);
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 10px;
+            box-shadow: 0 0 10px var(--success-green);
         }
+
+        .status-text {
+            color: var(--success-green);
+            font-family: 'Monaco', monospace;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
         p {
             font-size: 1.1rem;
             line-height: 1.6;
-            margin: 10px 0;
+            margin: 15px 0;
+            color: #afbac4;
         }
+
         .highlight {
-            color: #58a6ff;
+            color: var(--primary-blue);
             font-weight: bold;
         }
-        .whatsapp-btn {
+
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 14px 25px;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-wa {
             background-color: #25d366;
             color: white;
-            padding: 15px 25px;
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: bold;
-            display: inline-block;
-            margin-top: 25px;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
         }
-        .whatsapp-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+
+        .btn-fb {
+            background-color: var(--fb-blue);
+            color: white;
         }
+
+        .btn-mail {
+            background-color: transparent;
+            border: 1px solid #30363d;
+            color: #c9d1d9;
+        }
+
+        .btn-mail:hover {
+            border-color: var(--primary-blue);
+            background: rgba(88, 166, 255, 0.05);
+        }
+
         .footer {
             margin-top: 40px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: #484f58;
             border-top: 1px solid #30363d;
             padding-top: 20px;
         }
-        /* Sağ alttaki canlı widget */
+
         .floating-ela {
             position: fixed;
             bottom: 30px;
             right: 30px;
-            cursor: pointer;
-            text-align: center;
+            text-decoration: none;
+            z-index: 1000;
         }
+
         .ela-icon {
-            background: #58a6ff;
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
+            background: var(--primary-blue);
+            width: 65px;
+            height: 65px;
+            border-radius: 22px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 35px;
-            box-shadow: 0 0 20px rgba(88, 166, 255, 0.4);
-            animation: pulse 2s infinite;
+            font-size: 32px;
+            box-shadow: 0 10px 20px rgba(88, 166, 255, 0.4);
+            animation: float 3s ease-in-out infinite;
         }
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(88, 166, 255, 0.7); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(88, 166, 255, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(88, 166, 255, 0); }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 30px 20px; }
+            h1 { font-size: 2.5rem; }
         }
     </style>
 </head>
@@ -113,27 +183,34 @@
 
     <div class="container">
         <h1>EYSLabs</h1>
-        <div class="tagline">Future-Proof AI Solutions</div>
+        <div class="tagline">Innovative AI Systems</div>
         
         <div class="status-box">
-            <span class="status-text">● ELA System Online</span>
+            <span class="status-dot"></span>
+            <span class="status-text">ELA SYSTEM ONLINE</span>
         </div>
         
         <p>Hei Norge! 👋</p>
         <p>Møt <span class="highlight">ELA</span> – din nye intelligente partner.</p>
         <p>Vi revolusjonerer lokale bedrifter med kunstig intelligens.</p>
         
-        <a href="https://wa.me/4792942766" class="whatsapp-btn">Snakk med ELA nå</a>
+      <div class="btn-group">
+    <a href="https://wa.me/4792942766" class="btn btn-wa">💬 Snakk med ELA på WhatsApp</a>
+    
+    <a href="https://m.me/100086212220765" class="btn btn-fb">✉️ Melding på Messenger</a>
+    
+    <a href="mailto:vondern@gmail.com" class="btn btn-mail">📧 Send oss en e-post</a>
+</div>
         
         <div class="footer">
-          <p><strong>ELA</strong>: Elektronisk Lokal Assistent</p>
-    <p>EYSLabs.com | © 2024 | Powered by M5 Local AI</p>
+            <p><strong>ELA</strong>: Elektronisk Lokal Assistent</p>
+            <p>EYSLabs.com | © 2024 | Powered by M5 AI Technology</p>
         </div>
     </div>
 
     <a href="https://wa.me/4792942766" class="floating-ela">
         <div class="ela-icon">🤖</div>
-        <div style="font-size: 0.7rem; color: #58a6ff; margin-top: 5px; font-weight: bold;">TEST ELA</div>
+        <div style="font-size: 0.7rem; color: var(--primary-blue); margin-top: 8px; font-weight: 800; letter-spacing: 1px;">TEST ELA</div>
     </a>
 
 </body>
