@@ -4,210 +4,264 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EYSLabs - ELA AI Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-blue: #58a6ff;
-            --success-green: #2ecc71;
-            --fb-blue: #1877F2;
-            --bg-dark: #0d1117;
-            --card-bg: rgba(22, 27, 34, 0.8);
+            --primary-glow: #00d2ff;
+            --secondary-glow: #3a7bd5;
+            --accent-spring: #00ff88;
+            --text-main: #ffffff;
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
         }
 
         body {
-            font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
-            background: radial-gradient(circle at center, #161b22 0%, #0d1117 100%);
-            color: #c9d1d9;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg-dark);
+            background: radial-gradient(circle at 50% -20%, #3b82f633 0%, #0f172a 100%);
+            color: var(--text-main);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            text-align: center;
+            overflow-x: hidden;
+        }
+
+        /* Arka plana canlılık katan hareketli ışıklar */
+        body::before {
+            content: "";
+            position: absolute;
+            width: 300%;
+            height: 300%;
+            background: conic-gradient(from 180deg at 50% 50%, #00d2ff33 0deg, #00ff8811 120deg, #3a7bd522 240deg, #00d2ff33 360deg);
+            animation: rotate 20s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         .container {
-            border: 1px solid rgba(48, 54, 61, 0.8);
-            padding: 40px 30px;
-            border-radius: 24px;
-            background-color: var(--card-bg);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            max-width: 450px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 50px 40px;
+            border-radius: 32px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            max-width: 550px;
             width: 90%;
-            border: 1px solid rgba(88, 166, 255, 0.1);
+            text-align: center;
         }
 
         h1 {
-            color: var(--primary-blue);
-            font-size: 3rem;
-            margin: 0;
-            letter-spacing: -1px;
+            font-size: 3.5rem;
             font-weight: 800;
-            text-shadow: 0 0 20px rgba(88, 166, 255, 0.3);
+            margin: 0;
+            background: linear-gradient(to right, #00d2ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -2px;
         }
 
         .tagline {
-            color: #8b949e;
-            font-size: 0.85rem;
-            margin-bottom: 30px;
+            color: #94a3b8;
+            font-size: 0.9rem;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            font-weight: 500;
+            margin-bottom: 30px;
+            font-weight: 600;
         }
 
-        .status-box {
-            background: rgba(46, 204, 113, 0.1);
-            border: 1px solid rgba(46, 204, 113, 0.3);
-            padding: 8px 15px;
-            border-radius: 50px;
+        /* Hizmetler Bölümü (Fiyakalı Cümleler) */
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 35px 0;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 20px;
+            text-align: left;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: var(--accent-spring);
+            transform: translateY(-5px);
+        }
+
+        .service-card h3 {
+            font-size: 0.85rem;
+            color: var(--accent-spring);
+            margin: 0 0 8px 0;
+            text-transform: uppercase;
+        }
+
+        .service-card p {
+            font-size: 0.75rem;
+            color: #cbd5e1;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .status-badge {
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--accent-spring);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 700;
             display: inline-flex;
             align-items: center;
-            margin-bottom: 25px;
+            gap: 8px;
+            margin-bottom: 20px;
         }
 
-        .status-dot {
-            height: 8px;
+        .pulse-dot {
             width: 8px;
-            background-color: var(--success-green);
+            height: 8px;
+            background: var(--accent-spring);
             border-radius: 50%;
-            display: inline-block;
-            margin-right: 10px;
-            box-shadow: 0 0 10px var(--success-green);
+            box-shadow: 0 0 10px var(--accent-spring);
+            animation: pulse 2s infinite;
         }
 
-        .status-text {
-            color: var(--success-green);
-            font-family: 'Monaco', monospace;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-
-        p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin: 15px 0;
-            color: #afbac4;
-        }
-
-        .highlight {
-            color: var(--primary-blue);
-            font-weight: bold;
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
         .btn-group {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin-top: 30px;
+            gap: 15px;
+            margin-top: 20px;
         }
 
         .btn {
-            padding: 14px 25px;
+            padding: 16px 30px;
+            border-radius: 16px;
+            font-weight: 700;
             text-decoration: none;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
+            gap: 10px;
         }
 
         .btn-wa {
-            background-color: #25d366;
+            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
             color: white;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
-        }
-
-        .btn-fb {
-            background-color: var(--fb-blue);
-            color: white;
+            box-shadow: 0 10px 20px -5px rgba(37, 211, 102, 0.4);
         }
 
         .btn-mail {
-            background-color: transparent;
-            border: 1px solid #30363d;
-            color: #c9d1d9;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .btn-mail:hover {
-            border-color: var(--primary-blue);
-            background: rgba(88, 166, 255, 0.05);
+        .btn:hover {
+            transform: scale(1.02);
+            filter: brightness(1.1);
         }
 
         .footer {
             margin-top: 40px;
-            font-size: 0.75rem;
-            color: #484f58;
-            border-top: 1px solid #30363d;
-            padding-top: 20px;
+            font-size: 0.7rem;
+            color: #64748b;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 25px;
         }
 
-        .floating-ela {
+        .floating-bot {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            text-decoration: none;
-            z-index: 1000;
-        }
-
-        .ela-icon {
-            background: var(--primary-blue);
-            width: 65px;
-            height: 65px;
-            border-radius: 22px;
+            bottom: 40px;
+            right: 40px;
+            background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
+            width: 70px;
+            height: 70px;
+            border-radius: 24px;
             display: flex;
             justify-content: center;
             align-items: center;
             font-size: 32px;
-            box-shadow: 0 10px 20px rgba(88, 166, 255, 0.4);
-            animation: float 3s ease-in-out infinite;
+            box-shadow: 0 15px 30px rgba(0, 210, 255, 0.3);
+            animation: float 4s ease-in-out infinite;
+            cursor: pointer;
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px) rotate(5deg); }
         }
 
         @media (max-width: 480px) {
-            .container { padding: 30px 20px; }
-            h1 { font-size: 2.5rem; }
+            .services-grid { grid-template-columns: 1fr; }
+            h1 { font-size: 2.8rem; }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>EYSLabs</h1>
-        <div class="tagline">Innovative AI Systems</div>
-        
-        <div class="status-box">
-            <span class="status-dot"></span>
-            <span class="status-text">ELA SYSTEM ONLINE</span>
+        <div class="status-badge">
+            <div class="pulse-dot"></div>
+            ELA SYSTEM ACTIVE
         </div>
         
-        <p>Hei Norge! 👋</p>
-        <p>Møt <span class="highlight">ELA</span> – din nye intelligente partner.</p>
-        <p>Vi revolusjonerer lokale bedrifter med kunstig intelligens.</p>
-        
-      <div class="btn-group">
-    <a href="https://wa.me/4792942766" class="btn btn-wa">💬 Snakk med ELA på WhatsApp</a>
-    <a href="mailto:vondern@gmail.com" class="btn btn-mail">📧 Send oss en e-post</a>
-</div>
-        
+        <h1>EYSLabs</h1>
+        <div class="tagline">Next-Gen AI Labs</div>
+
+        <p style="color: #cbd5e1; font-weight: 500;">
+            Vi bringer fremtidens intelligens til din bedrift.
+        </p>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>Timebestilling</h3>
+                <p>Intelligente avtaler og sømløs kundehåndtering med ELA.</p>
+            </div>
+            <div class="service-card">
+                <h3>Økonomi</h3>
+                <p>Presis utgiftshåndtering og AI-drevet økonomisk analyse.</p>
+            </div>
+            <div class="service-card">
+                <h3>Feilsøking</h3>
+                <p>Avansert teknisk trouble-shooting og sanntids feilanalyse.</p>
+            </div>
+            <div class="service-card">
+                <h3>AI-Support</h3>
+                <p>24/7 intelligent kundeservice som lærer av din drift.</p>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <a href="https://wa.me/4792942766" class="btn btn-wa">
+                <span>Snakk med ELA på WhatsApp</span>
+            </a>
+            <a href="mailto:vondern@gmail.com" class="btn btn-mail">
+                <span>Send oss en e-post</span>
+            </a>
+        </div>
+
         <div class="footer">
             <p><strong>ELA</strong>: Elektronisk Lokal Assistent</p>
-            <p>EYSLabs.com | © 2024 | Powered by M5 AI Technology</p>
+            <p>EYSLabs.com | © 2024 | Bergen - Norway</p>
         </div>
     </div>
 
-    <a href="https://wa.me/4792942766" class="floating-ela">
-        <div class="ela-icon">🤖</div>
-        <div style="font-size: 0.7rem; color: var(--primary-blue); margin-top: 8px; font-weight: 800; letter-spacing: 1px;">TEST ELA</div>
+    <a href="https://wa.me/4792942766" class="floating-bot">
+        🤖
     </a>
 
 </body>
