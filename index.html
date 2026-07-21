@@ -3,7 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EYSLabs - Free Online Utility Tools</title>
+    
+    <!-- SEO Meta Tags for Google -->
+    <title>EYSLabs - Free Online Utility Tools (QR, Image & PDF)</title>
+    <meta name="description" content="Free, fast, and secure online tools. Generate QR codes, convert HEIC & PNG to JPG, and split PDF pages online directly in your browser. No registration required.">
+    <meta name="keywords" content="qr code generator, heic to jpg, pdf splitter, free online tools, convert image to jpg, client side pdf tools">
+    <meta name="author" content="EYSLabs">
+    
+    <!-- Open Graph / Facebook / Twitter -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="EYSLabs - Free Online Utility Tools">
+    <meta property="og:description" content="Convert images, split PDFs, and generate QR codes instantly in your browser. Fast, private, and free.">
+
+    <!-- Google AdSense Code -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2569386630460695" crossorigin="anonymous"></script>
+
+    <!-- Google Analytics (GA4) - 'G-XXXXXXXXXX' yerine kendi kodunu koyabilirsin -->
+    <!--
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    -->
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- QR Code Kütüphanesi -->
@@ -18,7 +43,6 @@
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
         
-        /* Dinlendirici ve Nötr Premium Arka Plan */
         .bg-clean-light {
             background-color: #f8fafc;
             background-image: 
@@ -31,7 +55,7 @@
     <!-- Ana Konteyner -->
     <div class="max-w-xl w-full mx-auto my-auto bg-white rounded-2xl shadow-[0_4px_25px_rgba(0,0,0,0.03)] p-6 sm:p-8 border border-slate-200/80">
         
-        <!-- Üst Başlık & Logo (Minimalist Kömür Tonu) -->
+        <!-- Üst Başlık & Logo -->
         <div class="flex items-center justify-center gap-3 mb-6">
             <div class="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center font-bold text-lg text-white shadow-sm">
                 E
@@ -41,7 +65,7 @@
             </h1>
         </div>
 
-        <!-- Nötr ve Minimalist Sekme Menüsü -->
+        <!-- Sekme Menüsü -->
         <div class="flex bg-slate-100/80 p-1 rounded-xl mb-6 border border-slate-200/60 text-xs sm:text-sm">
             <button id="tab-qr" onclick="switchTab('qr')" 
                 class="flex-1 py-2 px-2 rounded-lg font-semibold transition-all duration-200 bg-white text-slate-900 shadow-sm border border-slate-200/80">
@@ -151,7 +175,6 @@
     <script>
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
 
-        // Nötr Mat Temaya Göre Sekme Değişimi
         function switchTab(tab) {
             const tabs = ['qr', 'img', 'pdf'];
             tabs.forEach(t => {
