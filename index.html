@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EYSLabs - Free Online Utility Tools</title>
+    <title>EYSLabs - Online Utility Tools</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- QR Code Kütüphanesi -->
@@ -15,129 +15,127 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; }
         
-        .bg-pattern {
-            background-color: #0f172a;
+        .bg-soft-dark {
+            background-color: #0b0f17;
             background-image: 
-                radial-gradient(at 10% 10%, rgba(56, 189, 248, 0.12) 0px, transparent 50%),
-                radial-gradient(at 90% 90%, rgba(139, 92, 246, 0.12) 0px, transparent 50%);
+                radial-gradient(at 20% 20%, rgba(16, 185, 129, 0.05) 0px, transparent 40%),
+                radial-gradient(at 80% 80%, rgba(99, 102, 241, 0.05) 0px, transparent 40%);
         }
     </style>
 </head>
-<body class="bg-pattern text-gray-100 min-h-screen flex flex-col justify-between p-4">
+<body class="bg-soft-dark text-slate-200 min-h-screen flex flex-col justify-between p-4 selection:bg-emerald-500/30 selection:text-emerald-300">
 
     <!-- Ana Konteyner -->
-    <div class="max-w-2xl w-full mx-auto my-auto bg-gray-800/60 backdrop-blur-xl rounded-3xl shadow-[0_0_60px_-15px_rgba(0,0,0,0.7)] p-6 md:p-8 border border-gray-700/50">
+    <div class="max-w-2xl w-full mx-auto my-auto bg-slate-900/70 backdrop-blur-md rounded-2xl shadow-2xl p-6 md:p-8 border border-slate-800/80">
         
         <!-- Üst Başlık & Logo -->
-        <div class="flex items-center justify-center gap-3 mb-6">
-            <div class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center font-bold text-2xl text-white shadow-lg shadow-indigo-500/30">
+        <div class="flex items-center justify-center gap-3 mb-8">
+            <div class="w-9 h-9 bg-slate-800 border border-slate-700/80 rounded-xl flex items-center justify-center font-semibold text-lg text-emerald-400 shadow-inner">
                 E
             </div>
-            <h1 class="text-2xl font-extrabold text-white tracking-tight">
-                EYS<span class="text-indigo-400">Labs</span> Tools
+            <h1 class="text-xl font-semibold text-slate-100 tracking-tight">
+                EYS<span class="text-emerald-400 font-bold">Labs</span> <span class="text-slate-400 font-normal text-sm">/ Tools</span>
             </h1>
         </div>
 
-        <!-- Sekme Menüsü (Tabs) -->
-        <div class="flex bg-gray-900/80 p-1.5 rounded-2xl mb-8 border border-gray-700/40 text-xs md:text-sm">
+        <!-- Yumuşatılmış Sekme Menüsü -->
+        <div class="flex bg-slate-950/60 p-1 rounded-xl mb-8 border border-slate-800/60 text-xs md:text-sm">
             <button id="tab-qr" onclick="switchTab('qr')" 
-                class="flex-1 py-2.5 px-2 rounded-xl font-semibold transition duration-200 bg-indigo-600 text-white shadow-md">
+                class="flex-1 py-2 px-2 rounded-lg font-medium transition-all duration-200 bg-slate-800 text-emerald-400 shadow-sm border border-slate-700/50">
                 📱 QR Code
             </button>
             <button id="tab-img" onclick="switchTab('img')" 
-                class="flex-1 py-2.5 px-2 rounded-xl font-semibold transition duration-200 text-gray-400 hover:text-white">
+                class="flex-1 py-2 px-2 rounded-lg font-medium transition-all duration-200 text-slate-400 hover:text-slate-200">
                 🖼️ Image Conv.
             </button>
             <button id="tab-pdf" onclick="switchTab('pdf')" 
-                class="flex-1 py-2.5 px-2 rounded-xl font-semibold transition duration-200 text-gray-400 hover:text-white">
+                class="flex-1 py-2 px-2 rounded-lg font-medium transition-all duration-200 text-slate-400 hover:text-slate-200">
                 📄 PDF Tools
             </button>
         </div>
 
         <!-- ================= 1. ARAÇ: QR CODE GENERATOR ================= -->
-        <div id="section-qr" class="space-y-6">
+        <div id="section-qr" class="space-y-5">
             <div class="space-y-2">
-                <label class="block text-sm font-semibold text-gray-300">Enter Link or Text</label>
+                <label class="block text-xs font-medium text-slate-400 uppercase tracking-wider">Link or Text</label>
                 <input type="text" id="text-input" placeholder="https://eyslabs.com" 
-                    class="w-full p-4 rounded-xl bg-gray-900 text-white border border-gray-700/50 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition text-md placeholder-gray-600">
+                    class="w-full p-3.5 rounded-xl bg-slate-950/80 text-slate-200 border border-slate-800 focus:outline-none focus:border-emerald-500/50 transition text-sm placeholder-slate-600">
             </div>
 
             <button onclick="generateQR()" 
-                class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold py-3.5 rounded-xl shadow-lg transition duration-200 hover:opacity-90 text-md">
+                class="w-full bg-emerald-600/90 hover:bg-emerald-500 text-slate-950 font-semibold py-3 rounded-xl shadow-lg transition duration-200 text-sm">
                 Generate QR Code
             </button>
 
-            <div id="qrcode-container" class="pt-6 border-t border-gray-700/50 flex flex-col items-center hidden">
-                <div class="bg-white p-5 rounded-2xl shadow-xl mb-4">
+            <div id="qrcode-container" class="pt-6 border-t border-slate-800/60 flex flex-col items-center hidden">
+                <div class="bg-white p-4 rounded-xl shadow-md mb-4 border border-slate-200">
                     <div id="qrcode"></div>
                 </div>
-                <button onclick="downloadQR()" class="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-5 rounded-full text-sm transition flex items-center gap-2">
+                <button onclick="downloadQR()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 font-medium py-2 px-4 rounded-lg text-xs transition flex items-center gap-2">
                     ⬇️ Download PNG
                 </button>
             </div>
         </div>
 
         <!-- ================= 2. ARAÇ: IMAGE CONVERTER ================= -->
-        <div id="section-img" class="space-y-6 hidden">
+        <div id="section-img" class="space-y-5 hidden">
             <div class="space-y-2">
-                <label class="block text-sm font-semibold text-gray-300">Upload HEIC or PNG Image</label>
-                <div class="border-2 border-dashed border-gray-600 hover:border-indigo-500 rounded-2xl p-6 text-center cursor-pointer transition bg-gray-900/40" onclick="document.getElementById('image-file').click()">
+                <label class="block text-xs font-medium text-slate-400 uppercase tracking-wider">Upload HEIC or PNG</label>
+                <div class="border border-dashed border-slate-700 hover:border-emerald-500/50 rounded-xl p-6 text-center cursor-pointer transition bg-slate-950/40" onclick="document.getElementById('image-file').click()">
                     <input type="file" id="image-file" accept=".heic,.png,.jpg,.jpeg" class="hidden" onchange="handleFileSelect(event)">
-                    <div class="text-3xl mb-2">📁</div>
-                    <p class="text-sm font-medium text-gray-300">Click to upload image</p>
-                    <p class="text-xs text-gray-500 mt-1">Supports HEIC (iPhone) & PNG formats</p>
+                    <div class="text-2xl mb-2 text-slate-400">📁</div>
+                    <p class="text-xs font-medium text-slate-300">Click to choose image</p>
+                    <p class="text-[11px] text-slate-500 mt-1">HEIC (iPhone) & PNG supported</p>
                 </div>
-                <p id="file-name" class="text-xs text-indigo-400 font-mono mt-1 text-center"></p>
+                <p id="file-name" class="text-xs text-emerald-400 font-mono mt-1 text-center"></p>
             </div>
 
-            <div id="loading-spinner" class="hidden text-center text-indigo-400 text-sm font-semibold py-2">
-                ⏳ Converting image, please wait...
+            <div id="loading-spinner" class="hidden text-center text-emerald-400 text-xs font-medium py-2">
+                ⏳ Converting image...
             </div>
 
             <button onclick="convertImage()" id="convert-btn" disabled
-                class="w-full bg-gray-700 text-gray-400 font-bold py-3.5 rounded-xl transition duration-200 text-md cursor-not-allowed">
+                class="w-full bg-slate-800 text-slate-500 font-semibold py-3 rounded-xl transition duration-200 text-sm cursor-not-allowed border border-slate-800">
                 Convert to JPG
             </button>
 
-            <div id="converted-result" class="pt-6 border-t border-gray-700/50 flex flex-col items-center hidden">
-                <img id="preview-img" class="max-h-48 rounded-xl shadow-lg border border-gray-700 mb-4">
-                <a id="download-img-link" download="converted-image.jpg" 
-                    class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-2.5 px-6 rounded-full text-sm transition flex items-center gap-2">
+            <div id="converted-result" class="pt-6 border-t border-slate-800/60 flex flex-col items-center hidden">
+                <img id="preview-img" class="max-h-44 rounded-lg shadow-md border border-slate-800 mb-4">
+                <a id="download-img-link" download="eyslabs-converted.jpg" 
+                    class="bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-semibold py-2 px-5 rounded-lg text-xs transition flex items-center gap-2">
                     ⬇️ Download JPG
                 </a>
             </div>
         </div>
 
-        <!-- ================= 3. ARAÇ: PDF TOOLS (BÖLME / RESME ÇEVİRME) ================= -->
-        <div id="section-pdf" class="space-y-6 hidden">
+        <!-- ================= 3. ARAÇ: PDF TOOLS (SPLIT & CONVERT) ================= -->
+        <div id="section-pdf" class="space-y-5 hidden">
             <div class="space-y-2">
-                <label class="block text-sm font-semibold text-gray-300">Upload PDF File</label>
-                <div class="border-2 border-dashed border-gray-600 hover:border-indigo-500 rounded-2xl p-6 text-center cursor-pointer transition bg-gray-900/40" onclick="document.getElementById('pdf-file').click()">
+                <label class="block text-xs font-medium text-slate-400 uppercase tracking-wider">Upload Document</label>
+                <div class="border border-dashed border-slate-700 hover:border-emerald-500/50 rounded-xl p-6 text-center cursor-pointer transition bg-slate-950/40" onclick="document.getElementById('pdf-file').click()">
                     <input type="file" id="pdf-file" accept=".pdf" class="hidden" onchange="handlePdfSelect(event)">
-                    <div class="text-3xl mb-2">📕</div>
-                    <p class="text-sm font-medium text-gray-300">Click to upload PDF</p>
-                    <p class="text-xs text-gray-500 mt-1">Convert PDF to JPG images instantly</p>
+                    <div class="text-2xl mb-2 text-slate-400">📕</div>
+                    <p class="text-xs font-medium text-slate-300">Click to choose PDF</p>
+                    <p class="text-[11px] text-slate-500 mt-1">Extract & Split pages to JPG or single PDF</p>
                 </div>
-                <p id="pdf-file-name" class="text-xs text-indigo-400 font-mono mt-1 text-center"></p>
+                <p id="pdf-file-name" class="text-xs text-emerald-400 font-mono mt-1 text-center"></p>
             </div>
 
-            <div id="pdf-loading" class="hidden text-center text-indigo-400 text-sm font-semibold py-2">
-                ⏳ Processing PDF pages, please wait...
+            <div id="pdf-loading" class="hidden text-center text-emerald-400 text-xs font-medium py-2">
+                ⏳ Processing PDF pages...
             </div>
 
             <button onclick="processPdfToImages()" id="pdf-btn" disabled
-                class="w-full bg-gray-700 text-gray-400 font-bold py-3.5 rounded-xl transition duration-200 text-md cursor-not-allowed">
-                Convert PDF Pages to JPG
+                class="w-full bg-slate-800 text-slate-500 font-semibold py-3 rounded-xl transition duration-200 text-sm cursor-not-allowed border border-slate-800">
+                Process PDF Pages
             </button>
 
-            <!-- PDF Önizleme ve Sayfa İndirme Alanı -->
-            <div id="pdf-results" class="pt-6 border-t border-gray-700/50 space-y-4 hidden">
-                <p class="text-sm font-semibold text-gray-300 text-center">Converted Pages (Click to download):</p>
-                <div id="pdf-pages-container" class="grid grid-cols-2 gap-4 max-h-60 overflow-y-auto p-2 bg-gray-900/50 rounded-xl">
-                    <!-- Dinamik olarak PDF sayfaları buraya gelecek -->
+            <div id="pdf-results" class="pt-6 border-t border-slate-800/60 space-y-3 hidden">
+                <p class="text-xs font-medium text-slate-400 text-center">Extracted Pages (Download JPG or Split PDF):</p>
+                <div id="pdf-pages-container" class="grid grid-cols-2 gap-3 max-h-60 overflow-y-auto p-2 bg-slate-950/60 rounded-xl border border-slate-800/80">
                 </div>
             </div>
         </div>
@@ -145,32 +143,30 @@
     </div>
 
     <!-- Alt Bilgi -->
-    <footer class="text-gray-500 text-xs text-center py-4">
-        &copy; 2026 EYSLabs. All processing happens in your browser. Complete privacy guaranteed.
+    <footer class="text-slate-600 text-[11px] text-center py-4">
+        &copy; 2026 EYSLabs. Private & Client-side processing.
     </footer>
 
     <!-- SCRIPT KODLARI -->
     <script>
-        // PDF.js Worker Ayarı
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
 
-        // Sekmeler Arası Geçiş
         function switchTab(tab) {
             const tabs = ['qr', 'img', 'pdf'];
             tabs.forEach(t => {
                 const btn = document.getElementById(`tab-${t}`);
                 const sec = document.getElementById(`section-${t}`);
                 if (t === tab) {
-                    btn.className = "flex-1 py-2.5 px-2 rounded-xl font-semibold transition duration-200 bg-indigo-600 text-white shadow-md";
+                    btn.className = "flex-1 py-2 px-2 rounded-lg font-medium transition-all duration-200 bg-slate-800 text-emerald-400 shadow-sm border border-slate-700/50";
                     sec.classList.remove('hidden');
                 } else {
-                    btn.className = "flex-1 py-2.5 px-2 rounded-xl font-semibold transition duration-200 text-gray-400 hover:text-white";
+                    btn.className = "flex-1 py-2 px-2 rounded-lg font-medium transition-all duration-200 text-slate-400 hover:text-slate-200 border border-transparent";
                     sec.classList.add('hidden');
                 }
             });
         }
 
-        // --- 1. QR CODE ---
+        // 1. QR CODE (eyslabs-qr.png)
         let qrcode = null;
         function generateQR() {
             const text = document.getElementById("text-input").value;
@@ -179,18 +175,18 @@
             if (!text.trim()) { alert("Please enter text!"); return; }
             qrcodeDiv.innerHTML = "";
             container.classList.remove("hidden");
-            qrcode = new QRCode(qrcodeDiv, { text: text, width: 200, height: 200, colorDark : "#0f172a", colorLight : "#ffffff", correctLevel : QRCode.CorrectLevel.H });
+            qrcode = new QRCode(qrcodeDiv, { text: text, width: 180, height: 180, colorDark : "#0f172a", colorLight : "#ffffff", correctLevel : QRCode.CorrectLevel.H });
         }
         function downloadQR() {
             const qrCanvas = document.querySelector('#qrcode canvas');
             if (!qrCanvas) return;
             const link = document.createElement('a');
-            link.download = 'eyslabs-qr.png';
+            link.download = 'eyslabs-qr.png'; // MARKALAŞMA
             link.href = qrCanvas.toDataURL("image/png");
             link.click();
         }
 
-        // --- 2. IMAGE CONVERTER ---
+        // 2. IMAGE CONVERTER (eyslabs-converted.jpg)
         let selectedFile = null;
         function handleFileSelect(e) {
             selectedFile = e.target.files[0];
@@ -198,7 +194,7 @@
             if (selectedFile) {
                 document.getElementById('file-name').innerText = "Selected: " + selectedFile.name;
                 btn.disabled = false;
-                btn.className = "w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold py-3.5 rounded-xl shadow-lg transition duration-200 hover:opacity-90 text-md cursor-pointer";
+                btn.className = "w-full bg-emerald-600/90 hover:bg-emerald-500 text-slate-950 font-semibold py-3 rounded-xl shadow-lg transition duration-200 text-sm cursor-pointer";
             }
         }
         async function convertImage() {
@@ -216,7 +212,11 @@
                 }
                 const url = URL.createObjectURL(blobResult);
                 document.getElementById('preview-img').src = url;
-                document.getElementById('download-img-link').href = url;
+                
+                const link = document.getElementById('download-img-link');
+                link.href = url;
+                link.download = 'eyslabs-converted.jpg'; // MARKALAŞMA
+                
                 spinner.classList.add('hidden');
                 resultDiv.classList.remove('hidden');
             } catch (err) {
@@ -240,15 +240,17 @@
             });
         }
 
-        // --- 3. PDF TO IMAGE / SPLITTER ---
+        // 3. PDF TOOLS (SPLIT PDF & CONVERT TO JPG)
         let selectedPdf = null;
+        let originalPdfBytes = null;
+
         function handlePdfSelect(e) {
             selectedPdf = e.target.files[0];
             const btn = document.getElementById('pdf-btn');
             if (selectedPdf) {
-                document.getElementById('pdf-file-name').innerText = "Selected PDF: " + selectedPdf.name;
+                document.getElementById('pdf-file-name').innerText = "Selected: " + selectedPdf.name;
                 btn.disabled = false;
-                btn.className = "w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold py-3.5 rounded-xl shadow-lg transition duration-200 hover:opacity-90 text-md cursor-pointer";
+                btn.className = "w-full bg-emerald-600/90 hover:bg-emerald-500 text-slate-950 font-semibold py-3 rounded-xl shadow-lg transition duration-200 text-sm cursor-pointer";
             }
         }
 
@@ -263,12 +265,12 @@
             container.innerHTML = "";
 
             try {
-                const arrayBuffer = await selectedPdf.arrayBuffer();
-                const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+                originalPdfBytes = await selectedPdf.arrayBuffer();
+                const pdf = await pdfjsLib.getDocument({ data: originalPdfBytes }).promise;
 
                 for (let i = 1; i <= pdf.numPages; i++) {
                     const page = await pdf.getPage(i);
-                    const viewport = page.getViewport({ scale: 1.5 });
+                    const viewport = page.getViewport({ scale: 1.2 });
                     const canvas = document.createElement('canvas');
                     const context = canvas.getContext('2d');
                     canvas.height = viewport.height;
@@ -278,14 +280,18 @@
 
                     const imgUrl = canvas.toDataURL('image/jpeg');
 
-                    // Sayfa Kartı Oluştur
                     const card = document.createElement('div');
-                    card.className = "bg-gray-800 p-2 rounded-lg border border-gray-700 flex flex-col items-center";
+                    card.className = "bg-slate-900 p-2 rounded-lg border border-slate-800 flex flex-col items-center";
                     card.innerHTML = `
-                        <img src="${imgUrl}" class="max-h-28 rounded border border-gray-600 mb-2">
-                        <a href="${imgUrl}" download="page-${i}.jpg" class="text-xs bg-indigo-600 hover:bg-indigo-500 text-white py-1 px-3 rounded-full transition">
-                            ⬇️ Page ${i} (.JPG)
-                        </a>
+                        <img src="${imgUrl}" class="max-h-24 rounded border border-slate-700/60 mb-2">
+                        <div class="flex gap-1 w-full justify-center">
+                            <a href="${imgUrl}" download="eyslabs-page-${i}.jpg" class="text-[10px] bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-slate-700/80 py-1 px-2 rounded transition font-medium">
+                                🖼️ JPG
+                            </a>
+                            <button onclick="splitSinglePage(${i-1})" class="text-[10px] bg-slate-800 hover:bg-slate-700 text-indigo-400 border border-slate-700/80 py-1 px-2 rounded transition font-medium">
+                                📄 PDF
+                            </button>
+                        </div>
                     `;
                     container.appendChild(card);
                 }
@@ -297,6 +303,28 @@
                 console.error(err);
                 alert("Error processing PDF file.");
                 spinner.classList.add('hidden');
+            }
+        }
+
+        // Tek Sayfayı PDF olarak Bölüp İndirme (Split Feature)
+        async function splitSinglePage(pageIndex) {
+            try {
+                const srcDoc = await PDFLib.PDFDocument.load(originalPdfBytes);
+                const pdfDoc = await PDFLib.PDFDocument.create();
+                const [copiedPage] = await pdfDoc.copyPages(srcDoc, [pageIndex]);
+                pdfDoc.addPage(copiedPage);
+                
+                const pdfBytes = await pdfDoc.save();
+                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `eyslabs-split-page-${pageIndex + 1}.pdf`; // MARKALAŞMA
+                a.click();
+            } catch (err) {
+                console.error(err);
+                alert("Failed to split PDF page.");
             }
         }
     </script>
