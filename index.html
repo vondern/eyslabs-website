@@ -18,42 +18,41 @@
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
         
-        /* Ferah ve Temiz SaaS Arka Planı */
+        /* Dinlendirici ve Nötr Premium Arka Plan */
         .bg-clean-light {
             background-color: #f8fafc;
             background-image: 
-                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.08) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(59, 130, 246, 0.08) 0px, transparent 50%);
+                radial-gradient(at 50% 0%, rgba(226, 232, 240, 0.5) 0px, transparent 70%);
         }
     </style>
 </head>
-<body class="bg-clean-light text-slate-800 min-h-screen flex flex-col justify-between p-4 sm:p-6">
+<body class="bg-clean-light text-slate-800 min-h-screen flex flex-col justify-between p-4 sm:p-6 selection:bg-slate-900 selection:text-white">
 
-    <!-- Ana Konteyner (Ferah & Temiz Kart) -->
-    <div class="max-w-xl w-full mx-auto my-auto bg-white rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.05)] p-6 sm:p-8 border border-slate-200/80">
+    <!-- Ana Konteyner -->
+    <div class="max-w-xl w-full mx-auto my-auto bg-white rounded-2xl shadow-[0_4px_25px_rgba(0,0,0,0.03)] p-6 sm:p-8 border border-slate-200/80">
         
-        <!-- Üst Başlık & Logo -->
+        <!-- Üst Başlık & Logo (Minimalist Kömür Tonu) -->
         <div class="flex items-center justify-center gap-3 mb-6">
-            <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center font-bold text-lg text-white shadow-md shadow-blue-500/20">
+            <div class="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center font-bold text-lg text-white shadow-sm">
                 E
             </div>
             <h1 class="text-xl font-bold text-slate-900 tracking-tight">
-                EYS<span class="text-blue-600">Labs</span>
+                EYS<span class="text-slate-500 font-semibold">Labs</span>
             </h1>
         </div>
 
-        <!-- Tutarlı ve Şık Sekme Menüsü -->
-        <div class="flex bg-slate-100 p-1 rounded-xl mb-6 border border-slate-200/60 text-xs sm:text-sm">
+        <!-- Nötr ve Minimalist Sekme Menüsü -->
+        <div class="flex bg-slate-100/80 p-1 rounded-xl mb-6 border border-slate-200/60 text-xs sm:text-sm">
             <button id="tab-qr" onclick="switchTab('qr')" 
-                class="flex-1 py-2 px-2 rounded-lg font-semibold transition-all duration-200 bg-white text-blue-600 shadow-sm border border-slate-200">
+                class="flex-1 py-2 px-2 rounded-lg font-semibold transition-all duration-200 bg-white text-slate-900 shadow-sm border border-slate-200/80">
                 📱 QR Code
             </button>
             <button id="tab-img" onclick="switchTab('img')" 
-                class="flex-1 py-2 px-2 rounded-lg font-medium transition-all duration-200 text-slate-500 hover:text-slate-800">
+                class="flex-1 py-2 px-2 rounded-lg font-medium transition-all duration-200 text-slate-500 hover:text-slate-900">
                 🖼️ Image Conv.
             </button>
             <button id="tab-pdf" onclick="switchTab('pdf')" 
-                class="flex-1 py-2 px-2 rounded-lg font-medium transition-all duration-200 text-slate-500 hover:text-slate-800">
+                class="flex-1 py-2 px-2 rounded-lg font-medium transition-all duration-200 text-slate-500 hover:text-slate-900">
                 📄 PDF Tools
             </button>
         </div>
@@ -61,13 +60,13 @@
         <!-- ================= 1. ARAÇ: QR CODE GENERATOR ================= -->
         <div id="section-qr" class="space-y-4">
             <div class="space-y-1.5">
-                <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider">Link or Text</label>
+                <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider">Link or Text</label>
                 <input type="text" id="text-input" placeholder="https://eyslabs.com" 
-                    class="w-full p-3.5 rounded-xl bg-slate-50 text-slate-900 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition text-sm placeholder-slate-400">
+                    class="w-full p-3.5 rounded-xl bg-slate-50 text-slate-900 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-900 transition text-sm placeholder-slate-400">
             </div>
 
             <button onclick="generateQR()" 
-                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl shadow-sm transition duration-200 text-sm">
+                class="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold py-3 rounded-xl shadow-sm transition duration-200 text-sm">
                 Generate QR Code
             </button>
 
@@ -75,7 +74,7 @@
                 <div class="bg-slate-50 p-4 rounded-xl shadow-inner mb-4 border border-slate-200">
                     <div id="qrcode"></div>
                 </div>
-                <button onclick="downloadQR()" class="bg-slate-900 hover:bg-slate-800 text-white font-medium py-2 px-5 rounded-lg text-xs transition flex items-center gap-2">
+                <button onclick="downloadQR()" class="bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300/80 font-medium py-2 px-5 rounded-lg text-xs transition flex items-center gap-2">
                     ⬇️ Download PNG
                 </button>
             </div>
@@ -84,29 +83,29 @@
         <!-- ================= 2. ARAÇ: IMAGE CONVERTER ================= -->
         <div id="section-img" class="space-y-4 hidden">
             <div class="space-y-1.5">
-                <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider">Upload HEIC or PNG</label>
-                <div class="border-2 border-dashed border-slate-200 hover:border-blue-500 rounded-xl p-6 text-center cursor-pointer transition bg-slate-50/50" onclick="document.getElementById('image-file').click()">
+                <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider">Upload HEIC or PNG</label>
+                <div class="border-2 border-dashed border-slate-200 hover:border-slate-400 rounded-xl p-6 text-center cursor-pointer transition bg-slate-50/50" onclick="document.getElementById('image-file').click()">
                     <input type="file" id="image-file" accept=".heic,.png,.jpg,.jpeg" class="hidden" onchange="handleFileSelect(event)">
                     <div class="text-3xl mb-2">🖼️</div>
                     <p class="text-xs font-semibold text-slate-700">Click to upload or drag image</p>
                     <p class="text-[11px] text-slate-400 mt-1">Supports iPhone HEIC & PNG formats</p>
                 </div>
-                <p id="file-name" class="text-xs text-blue-600 font-medium mt-1 text-center"></p>
+                <p id="file-name" class="text-xs text-slate-700 font-medium mt-1 text-center font-mono"></p>
             </div>
 
-            <div id="loading-spinner" class="hidden text-center text-blue-600 text-xs font-semibold py-2">
+            <div id="loading-spinner" class="hidden text-center text-slate-700 text-xs font-semibold py-2">
                 ⏳ Converting image, please wait...
             </div>
 
             <button onclick="convertImage()" id="convert-btn" disabled
-                class="w-full bg-slate-100 text-slate-400 font-semibold py-3 rounded-xl transition duration-200 text-sm cursor-not-allowed">
+                class="w-full bg-slate-100 text-slate-400 font-semibold py-3 rounded-xl transition duration-200 text-sm cursor-not-allowed border border-slate-100">
                 Convert to JPG
             </button>
 
             <div id="converted-result" class="pt-6 border-t border-slate-100 flex flex-col items-center hidden">
-                <img id="preview-img" class="max-h-44 rounded-lg shadow-md border border-slate-200 mb-4">
+                <img id="preview-img" class="max-h-44 rounded-lg shadow-sm border border-slate-200 mb-4">
                 <a id="download-img-link" download="eyslabs-converted.jpg" 
-                    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-lg text-xs transition flex items-center gap-2 shadow-sm">
+                    class="bg-slate-900 hover:bg-slate-800 text-white font-semibold py-2 px-5 rounded-lg text-xs transition flex items-center gap-2 shadow-sm">
                     ⬇️ Download JPG
                 </a>
             </div>
@@ -115,27 +114,27 @@
         <!-- ================= 3. ARAÇ: PDF TOOLS ================= -->
         <div id="section-pdf" class="space-y-4 hidden">
             <div class="space-y-1.5">
-                <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider">Upload Document</label>
-                <div class="border-2 border-dashed border-slate-200 hover:border-blue-500 rounded-xl p-6 text-center cursor-pointer transition bg-slate-50/50" onclick="document.getElementById('pdf-file').click()">
+                <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider">Upload Document</label>
+                <div class="border-2 border-dashed border-slate-200 hover:border-slate-400 rounded-xl p-6 text-center cursor-pointer transition bg-slate-50/50" onclick="document.getElementById('pdf-file').click()">
                     <input type="file" id="pdf-file" accept=".pdf" class="hidden" onchange="handlePdfSelect(event)">
                     <div class="text-3xl mb-2">📄</div>
                     <p class="text-xs font-semibold text-slate-700">Click to upload PDF</p>
                     <p class="text-[11px] text-slate-400 mt-1">Extract & Split pages to JPG or single PDF</p>
                 </div>
-                <p id="pdf-file-name" class="text-xs text-blue-600 font-medium mt-1 text-center"></p>
+                <p id="pdf-file-name" class="text-xs text-slate-700 font-medium mt-1 text-center font-mono"></p>
             </div>
 
-            <div id="pdf-loading" class="hidden text-center text-blue-600 text-xs font-semibold py-2">
+            <div id="pdf-loading" class="hidden text-center text-slate-700 text-xs font-semibold py-2">
                 ⏳ Processing PDF pages, please wait...
             </div>
 
             <button onclick="processPdfToImages()" id="pdf-btn" disabled
-                class="w-full bg-slate-100 text-slate-400 font-semibold py-3 rounded-xl transition duration-200 text-sm cursor-not-allowed">
+                class="w-full bg-slate-100 text-slate-400 font-semibold py-3 rounded-xl transition duration-200 text-sm cursor-not-allowed border border-slate-100">
                 Process PDF Pages
             </button>
 
             <div id="pdf-results" class="pt-6 border-t border-slate-100 space-y-3 hidden">
-                <p class="text-xs font-semibold text-slate-600 text-center">Extracted Pages:</p>
+                <p class="text-xs font-semibold text-slate-500 text-center">Extracted Pages:</p>
                 <div id="pdf-pages-container" class="grid grid-cols-2 gap-3 max-h-60 overflow-y-auto p-2 bg-slate-50 rounded-xl border border-slate-200">
                 </div>
             </div>
@@ -152,17 +151,17 @@
     <script>
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
 
-        // Tek Tip Mavi Temaya Göre Sekme Değişimi
+        // Nötr Mat Temaya Göre Sekme Değişimi
         function switchTab(tab) {
             const tabs = ['qr', 'img', 'pdf'];
             tabs.forEach(t => {
                 const btn = document.getElementById(`tab-${t}`);
                 const sec = document.getElementById(`section-${t}`);
                 if (t === tab) {
-                    btn.className = "flex-1 py-2 px-2 rounded-lg font-semibold transition-all duration-200 bg-white text-blue-600 shadow-sm border border-slate-200";
+                    btn.className = "flex-1 py-2 px-2 rounded-lg font-semibold transition-all duration-200 bg-white text-slate-900 shadow-sm border border-slate-200/80";
                     sec.classList.remove('hidden');
                 } else {
-                    btn.className = "flex-1 py-2 px-2 rounded-lg font-medium transition-all duration-200 text-slate-500 hover:text-slate-800 border border-transparent";
+                    btn.className = "flex-1 py-2 px-2 rounded-lg font-medium transition-all duration-200 text-slate-500 hover:text-slate-900 border border-transparent";
                     sec.classList.add('hidden');
                 }
             });
@@ -196,7 +195,7 @@
             if (selectedFile) {
                 document.getElementById('file-name').innerText = "Selected: " + selectedFile.name;
                 btn.disabled = false;
-                btn.className = "w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl shadow-sm transition duration-200 text-sm cursor-pointer";
+                btn.className = "w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold py-3 rounded-xl shadow-sm transition duration-200 text-sm cursor-pointer";
             }
         }
         async function convertImage() {
@@ -252,7 +251,7 @@
             if (selectedPdf) {
                 document.getElementById('pdf-file-name').innerText = "Selected: " + selectedPdf.name;
                 btn.disabled = false;
-                btn.className = "w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl shadow-sm transition duration-200 text-sm cursor-pointer";
+                btn.className = "w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold py-3 rounded-xl shadow-sm transition duration-200 text-sm cursor-pointer";
             }
         }
 
@@ -286,11 +285,11 @@
                     card.className = "bg-white p-2 rounded-lg border border-slate-200 flex flex-col items-center shadow-sm";
                     card.innerHTML = `
                         <img src="${imgUrl}" class="max-h-24 rounded border border-slate-100 mb-2">
-                        <div class="flex gap-1 w-full justify-center">
-                            <a href="${imgUrl}" download="eyslabs-page-${i}.jpg" class="text-[10px] bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 py-1 px-2 rounded transition font-medium">
+                        <div class="flex gap-1.5 w-full justify-center">
+                            <a href="${imgUrl}" download="eyslabs-page-${i}.jpg" class="text-[10px] bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200/80 py-1 px-2.5 rounded-md transition font-medium">
                                 🖼️ JPG
                             </a>
-                            <button onclick="splitSinglePage(${i-1})" class="text-[10px] bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-200 py-1 px-2 rounded transition font-medium">
+                            <button onclick="splitSinglePage(${i-1})" class="text-[10px] bg-slate-900 hover:bg-slate-800 text-white py-1 px-2.5 rounded-md transition font-medium">
                                 📄 PDF
                             </button>
                         </div>
