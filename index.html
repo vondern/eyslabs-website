@@ -3,141 +3,251 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EYSLabs - Instant QR Code Generator</title>
-    <!-- Tailwind CSS (Tasarım için) -->
+    <title>EYSLabs - Free Online Utility Tools</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- QR Code Kütüphanesi -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <!-- HEIC to JPG Kütüphanesi -->
+    <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
+    
     <style>
-        /* Modern ve temiz yazı tipi */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; }
         
-        /* Arka plan gradyanı */
         .bg-pattern {
-            background-color: #0f172a; /* bg-gray-900 */
+            background-color: #0f172a;
             background-image: 
-                radial-gradient(at 10% 10%, rgba(56, 189, 248, 0.15) 0px, transparent 50%),
-                radial-gradient(at 90% 90%, rgba(139, 92, 246, 0.15) 0px, transparent 50%);
-        }
-
-        /* Hover efekti için parlama */
-        .glow-on-hover:hover {
-            box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+                radial-gradient(at 10% 10%, rgba(56, 189, 248, 0.12) 0px, transparent 50%),
+                radial-gradient(at 90% 90%, rgba(139, 92, 246, 0.12) 0px, transparent 50%);
         }
     </style>
 </head>
-<body class="bg-pattern text-gray-100 min-h-screen flex flex-col items-center justify-center p-4">
+<body class="bg-pattern text-gray-100 min-h-screen flex flex-col justify-between p-4">
 
     <!-- Ana Konteyner -->
-    <div class="max-w-xl w-full bg-gray-800/60 backdrop-blur-lg rounded-3xl shadow-[0_0_60px_-15px_rgba(0,0,0,0.7)] p-8 border border-gray-700/50">
+    <div class="max-w-2xl w-full mx-auto my-auto bg-gray-800/60 backdrop-blur-xl rounded-3xl shadow-[0_0_60px_-15px_rgba(0,0,0,0.7)] p-6 md:p-8 border border-gray-700/50">
         
-        <!-- Üst Başlık ve Logo Alanı -->
-        <div class="flex items-center justify-center gap-3 mb-8">
-            <!-- EYSLabs Vurgusu - Burayı kendi logonla değiştirebilirsin -->
-            <div class="w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center font-bold text-3xl text-white shadow-lg shadow-indigo-500/30">
+        <!-- Üst Başlık & Logo -->
+        <div class="flex items-center justify-center gap-3 mb-6">
+            <div class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center font-bold text-2xl text-white shadow-lg shadow-indigo-500/30">
                 E
             </div>
-            <div class="text-center">
-                <h1 class="text-3xl font-extrabold text-white tracking-tight">
-                    Quick<span class="text-indigo-400">QR</span> Generator
-                </h1>
-                <p class="text-gray-400 text-sm">Create beautiful, instant QR codes for free.</p>
-            </div>
+            <h1 class="text-2xl font-extrabold text-white tracking-tight">
+                EYS<span class="text-indigo-400">Labs</span> Tools
+            </h1>
         </div>
 
-        <!-- Girdi Alanı (Input) -->
-        <div class="space-y-3 mb-6">
-            <label class="block text-sm font-semibold text-gray-300">Enter your link or text below</label>
-            <div class="relative">
-                <input type="text" id="text-input" placeholder="https://eyslabs.com" 
-                    class="w-full p-4 pl-12 rounded-xl bg-gray-900 text-white border border-gray-700/50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all text-lg placeholder-gray-600">
-                <!-- Sol taraftaki ikon -->
-                <svg class="absolute left-4 top-4 h-6 w-6 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-                </svg>
-            </div>
-        </div>
-
-        <!-- Oluştur Butonu -->
-        <button onclick="generateQR()" 
-            class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold py-4 rounded-xl shadow-lg transition duration-300 transform hover:scale-[1.02] hover:from-indigo-500 hover:to-purple-500 active:scale-[0.98] focus:ring-4 focus:ring-indigo-500/40 glow-on-hover text-lg">
-            Generate My QR Code
-        </button>
-
-        <!-- Çıktı Alanı (QR Kod) - Animasyonlu açılır -->
-        <div id="qrcode-container" class="mt-10 pt-8 border-t border-gray-700/50 flex flex-col items-center hidden transform transition-all duration-500 ease-out opacity-0 translate-y-4">
-            
-            <div class="relative bg-white p-6 rounded-3xl shadow-[0_0_40px_-10px_rgba(0,0,0,0.5)] border-4 border-gray-100 mb-5">
-                <div id="qrcode"></div>
-                <!-- Ortada küçük bir 'E' işareti (Logo efekti) -->
-                <div class="absolute inset-0 flex items-center justify-center">
-                    <div class="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center font-bold text-xl text-white shadow-md border-4 border-white">
-                        E
-                    </div>
-                </div>
-            </div>
-
-            <p class="text-sm text-gray-400 mb-2">Code ready! Use below option or right-click to save.</p>
-            
-            <!-- İndirme Butonu -->
-            <button onclick="downloadQR()" 
-                class="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-6 rounded-full text-sm transition flex items-center gap-2">
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                Download PNG
+        <!-- Sekme Menüsü (Tabs) -->
+        <div class="flex bg-gray-900/80 p-1.5 rounded-2xl mb-8 border border-gray-700/40">
+            <button id="tab-qr" onclick="switchTab('qr')" 
+                class="flex-1 py-2.5 px-4 rounded-xl font-semibold text-sm transition duration-200 bg-indigo-600 text-white shadow-md">
+                📱 QR Generator
+            </button>
+            <button id="tab-img" onclick="switchTab('img')" 
+                class="flex-1 py-2.5 px-4 rounded-xl font-semibold text-sm transition duration-200 text-gray-400 hover:text-white">
+                🖼️ Image Converter
             </button>
         </div>
+
+        <!-- ================= 1. ARAÇ: QR CODE GENERATOR ================= -->
+        <div id="section-qr" class="space-y-6">
+            <div class="space-y-2">
+                <label class="block text-sm font-semibold text-gray-300">Enter Link or Text</label>
+                <input type="text" id="text-input" placeholder="https://eyslabs.com" 
+                    class="w-full p-4 rounded-xl bg-gray-900 text-white border border-gray-700/50 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition text-md placeholder-gray-600">
+            </div>
+
+            <button onclick="generateQR()" 
+                class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold py-3.5 rounded-xl shadow-lg transition duration-200 hover:opacity-90 text-md">
+                Generate QR Code
+            </button>
+
+            <div id="qrcode-container" class="pt-6 border-t border-gray-700/50 flex flex-col items-center hidden">
+                <div class="bg-white p-5 rounded-2xl shadow-xl mb-4">
+                    <div id="qrcode"></div>
+                </div>
+                <button onclick="downloadQR()" class="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-5 rounded-full text-sm transition flex items-center gap-2">
+                    ⬇️ Download PNG
+                </button>
+            </div>
+        </div>
+
+        <!-- ================= 2. ARAÇ: IMAGE CONVERTER (HEIC/PNG to JPG) ================= -->
+        <div id="section-img" class="space-y-6 hidden">
+            <div class="space-y-2">
+                <label class="block text-sm font-semibold text-gray-300">Upload HEIC or PNG Image</label>
+                
+                <!-- File Upload Box -->
+                <div class="border-2 border-dashed border-gray-600 hover:border-indigo-500 rounded-2xl p-6 text-center cursor-pointer transition bg-gray-900/40" onclick="document.getElementById('image-file').click()">
+                    <input type="file" id="image-file" accept=".heic,.png,.jpg,.jpeg" class="hidden" onchange="handleFileSelect(event)">
+                    <div class="text-3xl mb-2">📁</div>
+                    <p class="text-sm font-medium text-gray-300">Click to upload or drag & drop</p>
+                    <p class="text-xs text-gray-500 mt-1">Supports HEIC (iPhone) & PNG formats</p>
+                </div>
+                <p id="file-name" class="text-xs text-indigo-400 font-mono mt-1 text-center"></p>
+            </div>
+
+            <!-- Yükleniyor Uyarısı -->
+            <div id="loading-spinner" class="hidden text-center text-indigo-400 text-sm font-semibold py-2">
+                ⏳ Converting image, please wait...
+            </div>
+
+            <button onclick="convertImage()" id="convert-btn" disabled
+                class="w-full bg-gray-700 text-gray-400 font-bold py-3.5 rounded-xl transition duration-200 text-md cursor-not-allowed">
+                Convert to JPG
+            </button>
+
+            <!-- İndirme Alanı -->
+            <div id="converted-result" class="pt-6 border-t border-gray-700/50 flex flex-col items-center hidden">
+                <img id="preview-img" class="max-h-48 rounded-xl shadow-lg border border-gray-700 mb-4">
+                <a id="download-img-link" download="converted-image.jpg" 
+                    class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-2.5 px-6 rounded-full text-sm transition flex items-center gap-2">
+                    ⬇️ Download JPG
+                </a>
+            </div>
+        </div>
+
     </div>
 
     <!-- Alt Bilgi -->
-    <footer class="mt-12 text-gray-600 text-xs text-center">
-        &copy; 2024 EYSLabs. A product of micro-engineering. No data stored.
+    <footer class="text-gray-500 text-xs text-center py-4">
+        &copy; 2026 EYSLabs. Fast, secure, client-side tools. No files uploaded to servers.
     </footer>
 
-    <!-- Scriptler -->
+    <!-- SCRIPT KODLARI -->
     <script>
-        let qrcode = null;
+        // Sekmeler Arası Geçiş
+        function switchTab(tab) {
+            const qrTab = document.getElementById('tab-qr');
+            const imgTab = document.getElementById('tab-img');
+            const qrSection = document.getElementById('section-qr');
+            const imgSection = document.getElementById('section-img');
 
+            if(tab === 'qr') {
+                qrTab.className = "flex-1 py-2.5 px-4 rounded-xl font-semibold text-sm transition duration-200 bg-indigo-600 text-white shadow-md";
+                imgTab.className = "flex-1 py-2.5 px-4 rounded-xl font-semibold text-sm transition duration-200 text-gray-400 hover:text-white";
+                qrSection.classList.remove('hidden');
+                imgSection.classList.add('hidden');
+            } else {
+                imgTab.className = "flex-1 py-2.5 px-4 rounded-xl font-semibold text-sm transition duration-200 bg-indigo-600 text-white shadow-md";
+                qrTab.className = "flex-1 py-2.5 px-4 rounded-xl font-semibold text-sm transition duration-200 text-gray-400 hover:text-white";
+                imgSection.classList.remove('hidden');
+                qrSection.classList.add('hidden');
+            }
+        }
+
+        // --- 1. QR CODE FONKSİYONLARI ---
+        let qrcode = null;
         function generateQR() {
             const text = document.getElementById("text-input").value;
             const container = document.getElementById("qrcode-container");
             const qrcodeDiv = document.getElementById("qrcode");
 
             if (!text.trim()) {
-                alert("Hoop kirwe, geçerli bir link veya metin girmedin!");
+                alert("Please enter a link or text!");
                 return;
             }
-
-            // Önce temizle
             qrcodeDiv.innerHTML = "";
-            
-            // Konteyneri göster (Animasyon için önce 'hidden'ı kaldır, sonra efekti ekle)
             container.classList.remove("hidden");
-            setTimeout(() => {
-                container.classList.remove("opacity-0", "translate-y-4");
-            }, 10);
-
-            // QR Kod Oluştur (Modern görünüm için siyah/beyaz zıtlığı)
             qrcode = new QRCode(qrcodeDiv, {
                 text: text,
-                width: 256, // Daha yüksek kalite
-                height: 256,
-                colorDark : "#0f172a", // Çok koyu mavi
-                colorLight : "#ffffff", // Beyaz
-                correctLevel : QRCode.CorrectLevel.H // Yüksek hata düzeltme (Logo koymak için gerekli)
+                width: 200,
+                height: 200,
+                colorDark : "#0f172a",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H
             });
         }
 
-        // QR Kodu Görüntü Olarak İndirme Fonksiyonu
         function downloadQR() {
             const qrCanvas = document.querySelector('#qrcode canvas');
             if (!qrCanvas) return;
-
-            const image = qrCanvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+            const image = qrCanvas.toDataURL("image/png");
             const link = document.createElement('a');
-            link.download = 'eyslabs-qr-code.png';
+            link.download = 'eyslabs-qr.png';
             link.href = image;
             link.click();
+        }
+
+        // --- 2. IMAGE CONVERTER FONKSİYONLARI ---
+        let selectedFile = null;
+
+        function handleFileSelect(event) {
+            selectedFile = event.target.files[0];
+            const btn = document.getElementById('convert-btn');
+            const nameLabel = document.getElementById('file-name');
+
+            if (selectedFile) {
+                nameLabel.innerText = "Selected: " + selectedFile.name;
+                btn.disabled = false;
+                btn.className = "w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold py-3.5 rounded-xl shadow-lg transition duration-200 hover:opacity-90 text-md cursor-pointer";
+            }
+        }
+
+        async function convertImage() {
+            if (!selectedFile) return;
+
+            const spinner = document.getElementById('loading-spinner');
+            const resultDiv = document.getElementById('converted-result');
+            const previewImg = document.getElementById('preview-img');
+            const downloadLink = document.getElementById('download-img-link');
+
+            spinner.classList.remove('hidden');
+            resultDiv.classList.add('hidden');
+
+            try {
+                let blobResult;
+
+                // HEIC Dönüştürme Kontrolü
+                if (selectedFile.name.toLowerCase().endsWith('.heic')) {
+                    blobResult = await heic2any({
+                        blob: selectedFile,
+                        toType: "image/jpeg",
+                        quality: 0.85
+                    });
+                } else {
+                    // PNG veya Diğer Formatları Canvas ile JPG'ye Dönüştürme
+                    blobResult = await convertViaCanvas(selectedFile);
+                }
+
+                // Önizleme ve İndirme Linkini Hazırla
+                const url = URL.createObjectURL(blobResult);
+                previewImg.src = url;
+                downloadLink.href = url;
+                
+                spinner.classList.add('hidden');
+                resultDiv.classList.remove('hidden');
+
+            } catch (error) {
+                console.error(error);
+                alert("Error converting image. Please try another file.");
+                spinner.classList.add('hidden');
+            }
+        }
+
+        // PNG to JPG için Canvas Fonksiyonu
+        function convertViaCanvas(file) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Beyaz arka plan ekle (PNG şeffaflığı siyaha dönmesin diye)
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img, 0, 0);
+
+                    canvas.toBlob((blob) => {
+                        resolve(blob);
+                    }, 'image/jpeg', 0.85);
+                };
+                img.onerror = reject;
+                img.src = URL.createObjectURL(file);
+            });
         }
     </script>
 </body>
