@@ -8,8 +8,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- QR Code Kütüphanesi -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <!-- HEIC to JPG Kütüphanesi -->
+    <!-- HEIC Kütüphanesi -->
     <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
+    <!-- PDF Kütüphaneleri -->
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
@@ -39,14 +42,18 @@
         </div>
 
         <!-- Sekme Menüsü (Tabs) -->
-        <div class="flex bg-gray-900/80 p-1.5 rounded-2xl mb-8 border border-gray-700/40">
+        <div class="flex bg-gray-900/80 p-1.5 rounded-2xl mb-8 border border-gray-700/40 text-xs md:text-sm">
             <button id="tab-qr" onclick="switchTab('qr')" 
-                class="flex-1 py-2.5 px-4 rounded-xl font-semibold text-sm transition duration-200 bg-indigo-600 text-white shadow-md">
-                📱 QR Generator
+                class="flex-1 py-2.5 px-2 rounded-xl font-semibold transition duration-200 bg-indigo-600 text-white shadow-md">
+                📱 QR Code
             </button>
             <button id="tab-img" onclick="switchTab('img')" 
-                class="flex-1 py-2.5 px-4 rounded-xl font-semibold text-sm transition duration-200 text-gray-400 hover:text-white">
-                🖼️ Image Converter
+                class="flex-1 py-2.5 px-2 rounded-xl font-semibold transition duration-200 text-gray-400 hover:text-white">
+                🖼️ Image Conv.
+            </button>
+            <button id="tab-pdf" onclick="switchTab('pdf')" 
+                class="flex-1 py-2.5 px-2 rounded-xl font-semibold transition duration-200 text-gray-400 hover:text-white">
+                📄 PDF Tools
             </button>
         </div>
 
@@ -73,22 +80,19 @@
             </div>
         </div>
 
-        <!-- ================= 2. ARAÇ: IMAGE CONVERTER (HEIC/PNG to JPG) ================= -->
+        <!-- ================= 2. ARAÇ: IMAGE CONVERTER ================= -->
         <div id="section-img" class="space-y-6 hidden">
             <div class="space-y-2">
                 <label class="block text-sm font-semibold text-gray-300">Upload HEIC or PNG Image</label>
-                
-                <!-- File Upload Box -->
                 <div class="border-2 border-dashed border-gray-600 hover:border-indigo-500 rounded-2xl p-6 text-center cursor-pointer transition bg-gray-900/40" onclick="document.getElementById('image-file').click()">
                     <input type="file" id="image-file" accept=".heic,.png,.jpg,.jpeg" class="hidden" onchange="handleFileSelect(event)">
                     <div class="text-3xl mb-2">📁</div>
-                    <p class="text-sm font-medium text-gray-300">Click to upload or drag & drop</p>
+                    <p class="text-sm font-medium text-gray-300">Click to upload image</p>
                     <p class="text-xs text-gray-500 mt-1">Supports HEIC (iPhone) & PNG formats</p>
                 </div>
                 <p id="file-name" class="text-xs text-indigo-400 font-mono mt-1 text-center"></p>
             </div>
 
-            <!-- Yükleniyor Uyarısı -->
             <div id="loading-spinner" class="hidden text-center text-indigo-400 text-sm font-semibold py-2">
                 ⏳ Converting image, please wait...
             </div>
@@ -98,7 +102,6 @@
                 Convert to JPG
             </button>
 
-            <!-- İndirme Alanı -->
             <div id="converted-result" class="pt-6 border-t border-gray-700/50 flex flex-col items-center hidden">
                 <img id="preview-img" class="max-h-48 rounded-xl shadow-lg border border-gray-700 mb-4">
                 <a id="download-img-link" download="converted-image.jpg" 
@@ -108,146 +111,193 @@
             </div>
         </div>
 
+        <!-- ================= 3. ARAÇ: PDF TOOLS (BÖLME / RESME ÇEVİRME) ================= -->
+        <div id="section-pdf" class="space-y-6 hidden">
+            <div class="space-y-2">
+                <label class="block text-sm font-semibold text-gray-300">Upload PDF File</label>
+                <div class="border-2 border-dashed border-gray-600 hover:border-indigo-500 rounded-2xl p-6 text-center cursor-pointer transition bg-gray-900/40" onclick="document.getElementById('pdf-file').click()">
+                    <input type="file" id="pdf-file" accept=".pdf" class="hidden" onchange="handlePdfSelect(event)">
+                    <div class="text-3xl mb-2">📕</div>
+                    <p class="text-sm font-medium text-gray-300">Click to upload PDF</p>
+                    <p class="text-xs text-gray-500 mt-1">Convert PDF to JPG images instantly</p>
+                </div>
+                <p id="pdf-file-name" class="text-xs text-indigo-400 font-mono mt-1 text-center"></p>
+            </div>
+
+            <div id="pdf-loading" class="hidden text-center text-indigo-400 text-sm font-semibold py-2">
+                ⏳ Processing PDF pages, please wait...
+            </div>
+
+            <button onclick="processPdfToImages()" id="pdf-btn" disabled
+                class="w-full bg-gray-700 text-gray-400 font-bold py-3.5 rounded-xl transition duration-200 text-md cursor-not-allowed">
+                Convert PDF Pages to JPG
+            </button>
+
+            <!-- PDF Önizleme ve Sayfa İndirme Alanı -->
+            <div id="pdf-results" class="pt-6 border-t border-gray-700/50 space-y-4 hidden">
+                <p class="text-sm font-semibold text-gray-300 text-center">Converted Pages (Click to download):</p>
+                <div id="pdf-pages-container" class="grid grid-cols-2 gap-4 max-h-60 overflow-y-auto p-2 bg-gray-900/50 rounded-xl">
+                    <!-- Dinamik olarak PDF sayfaları buraya gelecek -->
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <!-- Alt Bilgi -->
     <footer class="text-gray-500 text-xs text-center py-4">
-        &copy; 2026 EYSLabs. Fast, secure, client-side tools. No files uploaded to servers.
+        &copy; 2026 EYSLabs. All processing happens in your browser. Complete privacy guaranteed.
     </footer>
 
     <!-- SCRIPT KODLARI -->
     <script>
+        // PDF.js Worker Ayarı
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+
         // Sekmeler Arası Geçiş
         function switchTab(tab) {
-            const qrTab = document.getElementById('tab-qr');
-            const imgTab = document.getElementById('tab-img');
-            const qrSection = document.getElementById('section-qr');
-            const imgSection = document.getElementById('section-img');
-
-            if(tab === 'qr') {
-                qrTab.className = "flex-1 py-2.5 px-4 rounded-xl font-semibold text-sm transition duration-200 bg-indigo-600 text-white shadow-md";
-                imgTab.className = "flex-1 py-2.5 px-4 rounded-xl font-semibold text-sm transition duration-200 text-gray-400 hover:text-white";
-                qrSection.classList.remove('hidden');
-                imgSection.classList.add('hidden');
-            } else {
-                imgTab.className = "flex-1 py-2.5 px-4 rounded-xl font-semibold text-sm transition duration-200 bg-indigo-600 text-white shadow-md";
-                qrTab.className = "flex-1 py-2.5 px-4 rounded-xl font-semibold text-sm transition duration-200 text-gray-400 hover:text-white";
-                imgSection.classList.remove('hidden');
-                qrSection.classList.add('hidden');
-            }
+            const tabs = ['qr', 'img', 'pdf'];
+            tabs.forEach(t => {
+                const btn = document.getElementById(`tab-${t}`);
+                const sec = document.getElementById(`section-${t}`);
+                if (t === tab) {
+                    btn.className = "flex-1 py-2.5 px-2 rounded-xl font-semibold transition duration-200 bg-indigo-600 text-white shadow-md";
+                    sec.classList.remove('hidden');
+                } else {
+                    btn.className = "flex-1 py-2.5 px-2 rounded-xl font-semibold transition duration-200 text-gray-400 hover:text-white";
+                    sec.classList.add('hidden');
+                }
+            });
         }
 
-        // --- 1. QR CODE FONKSİYONLARI ---
+        // --- 1. QR CODE ---
         let qrcode = null;
         function generateQR() {
             const text = document.getElementById("text-input").value;
             const container = document.getElementById("qrcode-container");
             const qrcodeDiv = document.getElementById("qrcode");
-
-            if (!text.trim()) {
-                alert("Please enter a link or text!");
-                return;
-            }
+            if (!text.trim()) { alert("Please enter text!"); return; }
             qrcodeDiv.innerHTML = "";
             container.classList.remove("hidden");
-            qrcode = new QRCode(qrcodeDiv, {
-                text: text,
-                width: 200,
-                height: 200,
-                colorDark : "#0f172a",
-                colorLight : "#ffffff",
-                correctLevel : QRCode.CorrectLevel.H
-            });
+            qrcode = new QRCode(qrcodeDiv, { text: text, width: 200, height: 200, colorDark : "#0f172a", colorLight : "#ffffff", correctLevel : QRCode.CorrectLevel.H });
         }
-
         function downloadQR() {
             const qrCanvas = document.querySelector('#qrcode canvas');
             if (!qrCanvas) return;
-            const image = qrCanvas.toDataURL("image/png");
             const link = document.createElement('a');
             link.download = 'eyslabs-qr.png';
-            link.href = image;
+            link.href = qrCanvas.toDataURL("image/png");
             link.click();
         }
 
-        // --- 2. IMAGE CONVERTER FONKSİYONLARI ---
+        // --- 2. IMAGE CONVERTER ---
         let selectedFile = null;
-
-        function handleFileSelect(event) {
-            selectedFile = event.target.files[0];
+        function handleFileSelect(e) {
+            selectedFile = e.target.files[0];
             const btn = document.getElementById('convert-btn');
-            const nameLabel = document.getElementById('file-name');
-
             if (selectedFile) {
-                nameLabel.innerText = "Selected: " + selectedFile.name;
+                document.getElementById('file-name').innerText = "Selected: " + selectedFile.name;
                 btn.disabled = false;
                 btn.className = "w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold py-3.5 rounded-xl shadow-lg transition duration-200 hover:opacity-90 text-md cursor-pointer";
             }
         }
-
         async function convertImage() {
             if (!selectedFile) return;
-
             const spinner = document.getElementById('loading-spinner');
             const resultDiv = document.getElementById('converted-result');
-            const previewImg = document.getElementById('preview-img');
-            const downloadLink = document.getElementById('download-img-link');
-
             spinner.classList.remove('hidden');
             resultDiv.classList.add('hidden');
-
             try {
                 let blobResult;
-
-                // HEIC Dönüştürme Kontrolü
                 if (selectedFile.name.toLowerCase().endsWith('.heic')) {
-                    blobResult = await heic2any({
-                        blob: selectedFile,
-                        toType: "image/jpeg",
-                        quality: 0.85
-                    });
+                    blobResult = await heic2any({ blob: selectedFile, toType: "image/jpeg", quality: 0.85 });
                 } else {
-                    // PNG veya Diğer Formatları Canvas ile JPG'ye Dönüştürme
                     blobResult = await convertViaCanvas(selectedFile);
                 }
-
-                // Önizleme ve İndirme Linkini Hazırla
                 const url = URL.createObjectURL(blobResult);
-                previewImg.src = url;
-                downloadLink.href = url;
-                
+                document.getElementById('preview-img').src = url;
+                document.getElementById('download-img-link').href = url;
                 spinner.classList.add('hidden');
                 resultDiv.classList.remove('hidden');
-
-            } catch (error) {
-                console.error(error);
-                alert("Error converting image. Please try another file.");
+            } catch (err) {
+                alert("Conversion failed!");
                 spinner.classList.add('hidden');
             }
         }
-
-        // PNG to JPG için Canvas Fonksiyonu
         function convertViaCanvas(file) {
             return new Promise((resolve, reject) => {
                 const img = new Image();
                 img.onload = () => {
                     const canvas = document.createElement('canvas');
-                    canvas.width = img.width;
-                    canvas.height = img.height;
+                    canvas.width = img.width; canvas.height = img.height;
                     const ctx = canvas.getContext('2d');
-                    
-                    // Beyaz arka plan ekle (PNG şeffaflığı siyaha dönmesin diye)
-                    ctx.fillStyle = '#FFFFFF';
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    ctx.fillStyle = '#FFFFFF'; ctx.fillRect(0, 0, canvas.width, canvas.height);
                     ctx.drawImage(img, 0, 0);
-
-                    canvas.toBlob((blob) => {
-                        resolve(blob);
-                    }, 'image/jpeg', 0.85);
+                    canvas.toBlob(blob => resolve(blob), 'image/jpeg', 0.85);
                 };
                 img.onerror = reject;
                 img.src = URL.createObjectURL(file);
             });
+        }
+
+        // --- 3. PDF TO IMAGE / SPLITTER ---
+        let selectedPdf = null;
+        function handlePdfSelect(e) {
+            selectedPdf = e.target.files[0];
+            const btn = document.getElementById('pdf-btn');
+            if (selectedPdf) {
+                document.getElementById('pdf-file-name').innerText = "Selected PDF: " + selectedPdf.name;
+                btn.disabled = false;
+                btn.className = "w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold py-3.5 rounded-xl shadow-lg transition duration-200 hover:opacity-90 text-md cursor-pointer";
+            }
+        }
+
+        async function processPdfToImages() {
+            if (!selectedPdf) return;
+            const spinner = document.getElementById('pdf-loading');
+            const resultsDiv = document.getElementById('pdf-results');
+            const container = document.getElementById('pdf-pages-container');
+            
+            spinner.classList.remove('hidden');
+            resultsDiv.classList.add('hidden');
+            container.innerHTML = "";
+
+            try {
+                const arrayBuffer = await selectedPdf.arrayBuffer();
+                const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+
+                for (let i = 1; i <= pdf.numPages; i++) {
+                    const page = await pdf.getPage(i);
+                    const viewport = page.getViewport({ scale: 1.5 });
+                    const canvas = document.createElement('canvas');
+                    const context = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+
+                    await page.render({ canvasContext: context, viewport: viewport }).promise;
+
+                    const imgUrl = canvas.toDataURL('image/jpeg');
+
+                    // Sayfa Kartı Oluştur
+                    const card = document.createElement('div');
+                    card.className = "bg-gray-800 p-2 rounded-lg border border-gray-700 flex flex-col items-center";
+                    card.innerHTML = `
+                        <img src="${imgUrl}" class="max-h-28 rounded border border-gray-600 mb-2">
+                        <a href="${imgUrl}" download="page-${i}.jpg" class="text-xs bg-indigo-600 hover:bg-indigo-500 text-white py-1 px-3 rounded-full transition">
+                            ⬇️ Page ${i} (.JPG)
+                        </a>
+                    `;
+                    container.appendChild(card);
+                }
+
+                spinner.classList.add('hidden');
+                resultsDiv.classList.remove('hidden');
+
+            } catch (err) {
+                console.error(err);
+                alert("Error processing PDF file.");
+                spinner.classList.add('hidden');
+            }
         }
     </script>
 </body>
