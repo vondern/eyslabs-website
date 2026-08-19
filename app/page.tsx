@@ -3,6 +3,7 @@ import Hero from './components/Hero';
 import Services from './components/Services';
 import About from './components/About';
 import Contact from './components/Contact';
+import Products from './components/Products'; // <-- Yeni Eklendi
 import Footer from './components/Footer';
 
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
       <Services />
       <About />
       <Contact />
+      <Products />
       <Footer />
     </main>
   );
