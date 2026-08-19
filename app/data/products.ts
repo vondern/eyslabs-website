@@ -18,7 +18,7 @@ export const PRODUCTS: Product[] = [
     price: '249 NOK',
     description: 'Klassisk retro design inspirert av den originale Gameboy. Passer perfekt på nattbordet.',
     features: ['3D-printed med høj presisjon', 'Kompatibel med alle Apple Watch-størrelser', 'Kabelhåndtering på baksiden'],
-    image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80', // Geçici görsel
+    image: 'RetroGameAW.jpeg', // https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80', // Geçici görsel
     buyUrl: '#contact', // Veya direkt Finn.no / Vipps linki
     inStock: true,
   },
