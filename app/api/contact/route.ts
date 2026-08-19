@@ -23,15 +23,15 @@ export async function POST(request: Request) {
 
     await resend.emails.send({
       from: 'EYS LABS Contact <onboarding@resend.dev>',
-      to: 'vondern@gmail.com', // Mesajların düşmesini istediğin e-posta adresi
+      to: 'vondern@gmail.com',
       subject: `[EYS LABS İletişim] ${subject} - ${name}`,
-      replyTo: email,
+      reply_to: email,
       text: `İsim: ${name}\nE-posta: ${email}\nKonu: ${subject}\n\nMesaj:\n${message}`,
       attachments: attachments,
     });
 
     return NextResponse.json({ success: true, message: 'Melding sendt!' });
   } catch (error) {
-    return NextResponse.json({ success: false, error: 'Eror ved sending' }, { status: 500 });
+    return NextResponse.json({ success: false, error: 'Feil ved sending' }, { status: 500 });
   }
 }
