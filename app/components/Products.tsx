@@ -4,6 +4,8 @@ export default function Products() {
   return (
     <section id="products" className="py-20 bg-slate-900 border-t border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Başlık */}
         <div className="text-center mb-16">
           <span className="text-xs font-semibold px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 uppercase tracking-wider">
             Produkter
@@ -14,12 +16,14 @@ export default function Products() {
           </p>
         </div>
 
+        {/* Ürün Listesi */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {PRODUCTS.map((product) => (
             <div 
               key={product.id}
               className="bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden flex flex-col hover:border-cyan-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/10"
             >
+              {/* Görsel */}
               <div className="h-48 w-full overflow-hidden bg-slate-900 relative">
                 <img 
                   src={product.image} 
@@ -31,6 +35,7 @@ export default function Products() {
                 </span>
               </div>
 
+              {/* Detaylar */}
               <div className="p-6 flex-1 flex flex-col justify-between">
                 <div>
                   <div className="flex justify-between items-start mb-2">
@@ -51,6 +56,7 @@ export default function Products() {
                   </ul>
                 </div>
 
+                {/* Buton */}
                 <a
                   href={product.buyUrl || '#contact'}
                   className="w-full py-3 px-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold text-center transition-colors block"
@@ -61,6 +67,7 @@ export default function Products() {
             </div>
           ))}
         </div>
+
       </div>
     </section>
   );
