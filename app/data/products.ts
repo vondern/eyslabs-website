@@ -15,7 +15,7 @@ export const PRODUCTS: Product[] = [
     id: 'gameboy-watch-stand',
     title: 'Retro Gameboy Apple Watch Lader',
     category: '3D- Brikker',
-    price: '249 NOK',
+    price: '214 NOK',
     description: 'Klassisk retro design inspirert av den originale Gameboy. Passer perfekt på nattbordet.',
     features: ['3D-printed med høj presisjon', 'Kompatibel med alle Apple Watch-størrelser', 'Kabelhåndtering på baksiden'],
     image: '/products/RetroGameAW.jpeg', // https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80', // Geçici görsel
