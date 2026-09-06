@@ -1,3 +1,15 @@
+export interface Product {
+  id: string;
+  title: string;
+  category: string;
+  price: string;
+  description: string;
+  features: string[];
+  image: string;
+  buyUrl?: string;
+  inStock: boolean;
+}
+
 export const PRODUCTS: Product[] = [
   {
     id: 'gameboy-watch-stand',
@@ -33,7 +45,7 @@ export const PRODUCTS: Product[] = [
       'Standard (60 NOK): Inkluderer leke, nøkkelring eller 5 stk godteri',
       'Skreddersydd (100 NOK): Spesialtilpasset figur eller personlig hilsen',
     ],
-    image: '/products/egg.png',
+    image: '/products/egg.jpg',
     buyUrl: '#contact',
     inStock: true,
   },
@@ -49,7 +61,7 @@ export const PRODUCTS: Product[] = [
       'Inkluderer navn, dato, klokkeslett, vekt og lengde',
       'Standard modell: 449 NOK | Spesialdesignet tema: 699 NOK',
     ],
-    image: '/products/baby.png',
+    image: '/products/baby.jpg',
     buyUrl: '#contact',
     inStock: true,
   },
