@@ -65,4 +65,20 @@ export const PRODUCTS: Product[] = [
     buyUrl: '#contact',
     inStock: true,
   },
+  {
+  id: 'dyson-supersonic-veggfeste',
+  title: 'Dyson Supersonic Veggfeste',
+  category: '3D- Brikker',
+  price: '259 NOK',
+  description: 'Praktisk og stilrent veggfeste til Dyson Supersonic. Frigjør plass på baderommet og holder hårføneren trygt og lett tilgjengelig.',
+  features: [
+    'Komplett set: Inkluderer både 3M VHB tape og skruer/plugger',
+    'Ingen boring nødvendig – perfekt for fliser og leiebolig',
+    '3D-printet i slitesterk og fuktbestandig PETG',
+    'Gratis rask frakt med sporing over hele landet inkludert (200 NOK ved henting)',
+  ],
+  image: '/products/dyson.jpeg',
+  buyUrl: '#contact',
+  inStock: true,
+},
 ];
