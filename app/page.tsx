@@ -15,7 +15,7 @@ const PRODUCTS: Product[] = [
     title: 'Retro Gameboy Apple Watch Lader Stand',
     category: '3D Design',
     description: 'Klassisk retro design inspirert av den originale Gameboy. 3D-modellert og tilpasset Apple Watch.',
-    features: ['3D-printed med høy presisjon', 'Kompatibel med alle Apple Watch-størrelser', 'Kabelhåndtering på baksiden'],
+    features: ['3D-printed med høy presisjon'],
     image: '/products/RetroGameAW.jpeg',
   },
 
