@@ -2,83 +2,49 @@ export interface Product {
   id: string;
   title: string;
   category: string;
-  price: string;
   description: string;
   features: string[];
   image: string;
-  buyUrl?: string;
-  inStock: boolean;
 }
 
 export const PRODUCTS: Product[] = [
   {
     id: 'gameboy-watch-stand',
-    title: 'Retro Gameboy Apple Watch Lader',
-    category: '3D- Brikker',
-    price: '214 NOK',
-    description: 'Klassisk retro design inspirert av den originale Gameboy. Passer perfekt på nattbordet.',
-    features: ['3D-printed med høj presisjon', 'Kompatibel med alle Apple Watch-størrelser', 'Kabelhåndtering på baksiden'],
+    title: 'Retro Gameboy Apple Watch Lader Stand',
+    category: '3D Design',
+    description: 'Klassisk retro design inspirert av den originale Gameboy. 3D-modellert og tilpasset Apple Watch.',
+    features: ['3D-printed med høy presisjon', 'Kompatibel med alle Apple Watch-størrelser', 'Kabelhåndtering på baksiden'],
     image: '/products/RetroGameAW.jpeg',
-    buyUrl: 'https://www.etsy.com/no-en/listing/4561553191/retro-console-apple-watch-stand-3d',
-    inStock: true,
   },
   {
     id: 'retro-radio-bt',
-    title: 'Retro Radio Bluetooth Omformer Kit',
-    category: 'Elektronikk',
-    price: '899 NOK',
-    description: 'Gi nytt liv til din vintage radio med ESP32 og førsteklasses lydforsterker.',
-    features: ['ESP32-S3 Basert', 'PCM5102A Hi-Fi DAC', 'TPA3116D2 Klasse-D Forsterker'],
+    title: 'Retro Radio Bluetooth Omformer (ESP32 Project)',
+    category: 'IoT & Embedded Electronics',
+    description: 'Egentilpasset elektronikkprosjekt for å gi nytt liv til vintage radioer med ESP32 og DAC forsterker.',
+    features: ['ESP32-S3 Basert MCU', 'PCM5102A Hi-Fi DAC', 'TPA3116D2 Klasse-D Forsterker'],
     image: 'https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=600&q=80',
-    buyUrl: '#contact',
-    inStock: true,
-  },
-  {
-    id: 'magisk-overraskelsesegg',
-    title: 'Magisk Overraskelsesegg',
-    category: '3D- Brikker',
-    price: 'Fra 60 NOK',
-    description: 'Oppdag gleden gjemt under skallet! Interaktivt 3D-printet egg som må knekkes for å avsløre den skjulte skatten.',
-    features: [
-      'Interaktivt "knekke-design"',
-      'Minstebestilling: 10 stk',
-      'Standard (60 NOK): Inkluderer leke, nøkkelring eller 5 stk godteri',
-      'Skreddersydd (100 NOK): Spesialtilpasset figur eller personlig hilsen',
-    ],
-    image: '/products/egg.png',
-    buyUrl: '#contact',
-    inStock: true,
   },
   {
     id: 'skreddersydd-fodselstavle',
-    title: 'Skreddersydd Fødselstavle',
-    category: '3D- Brikker',
-    price: 'Fra 449 NOK',
-    description: 'Ett unikt 3D-minne om dagen da alt startet. Helt skreddersydd etter ditt valgte tema, farger og barnets fødselsdata.',
+    title: 'Skreddersydd Fødselstavle koncept',
+    category: '3D Design',
+    description: 'Et unikt 3D-minnekonsett. Lagdelt dybdekonsept designet med personlige temaer.',
     features: [
       'Lagdelt 3D-dybde for et eksklusivt uttrykk',
-      'Valgfritt tema (Fjell, nordisk eventyr, romfart, skog osv.)',
-      'Inkluderer navn, dato, klokkeslett, vekt og lengde',
-      'Standard modell: 449 NOK | Spesialdesignet tema: 699 NOK',
+      'Valgfritt tema (Fjell, nordisk eventyr, romfart, skog)',
+      'Personlig tilpasset struktur'
     ],
     image: '/products/baby.png',
-    buyUrl: '#contact',
-    inStock: true,
   },
   {
-  id: 'dyson-supersonic-veggfeste',
-  title: 'Dyson Supersonic Veggfeste',
-  category: '3D- Brikker',
-  price: '259 NOK',
-  description: 'Praktisk og stilrent veggfeste til Dyson Supersonic. Frigjør plass på baderommet og holder hårføneren trygt og lett tilgjengelig.',
-  features: [
-    'Komplett set: Inkluderer både 3M VHB tape og skruer/plugger',
-    'Ingen boring nødvendig – perfekt for fliser og leiebolig',
-    '3D-printet i slitesterk og fuktbestandig PETG',
-    'Gratis rask frakt med sporing over hele landet inkludert (200 NOK ved henting)',
-  ],
-  image: '/products/dyson.jpeg',
-  buyUrl: '#contact',
-  inStock: true,
-},
+    id: 'dyson-supersonic-veggfeste',
+    title: 'Dyson Supersonic Veggfeste Modell',
+    category: '3D Design',
+    description: 'Praktisk og stilrent veggfeste konseptelement til Dyson Supersonic.',
+    features: [
+      '3D-printet i slitesterk og fuktbestandig PETG',
+      'Ergonomisk passform og kabelholder'
+    ],
+    image: '/products/dyson.jpeg',
+  },
 ];
