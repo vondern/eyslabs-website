@@ -1,74 +1,62 @@
-import { PRODUCTS } from '../data/products';
+import React from 'react';
 
-export default function Products() {
+export interface Product {
+  id: string;
+  title: string;
+  category: string;
+  description: string;
+  features: string[];
+  image: string;
+}
+
+interface ProductsProps {
+  products: Product[];
+}
+
+export const Products: React.FC<ProductsProps> = ({ products }) => {
   return (
-    <section id="products" className="py-20 bg-slate-900 border-t border-slate-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Başlık */}
-        <div className="text-center mb-16">
-          <span className="text-xs font-semibold px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 uppercase tracking-wider">
-            Produkter
-          </span>
-          <h2 className="text-3xl font-bold text-white sm:text-4xl mt-3">Våre Produkter</h2>
-          <p className="mt-4 text-slate-400">
-            Spesialutviklede 3D-prints, custom elektronikk og tilbehør fra EYS LABS.
-          </p>
-        </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {products.map((product) => (
+        <div
+          key={product.id}
+          className="bg-slate-900/60 border border-slate-800 rounded-2xl overflow-hidden hover:border-slate-700 transition duration-300 flex flex-col"
+        >
+          <div className="h-64 overflow-hidden bg-slate-950 relative">
+            <img
+              src={product.image}
+              alt={product.title}
+              className="w-full h-full object-cover opacity-90 hover:scale-105 transition duration-500"
+            />
+            <span className="absolute top-4 left-4 text-xs font-semibold px-3 py-1 rounded-full bg-slate-950/80 backdrop-blur text-slate-300 border border-slate-800">
+              {product.category}
+            </span>
+          </div>
 
-        {/* Ürün Listesi */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {PRODUCTS.map((product) => (
-            <div 
-              key={product.id}
-              className="bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden flex flex-col hover:border-cyan-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/10"
-            >
-              {/* Görsel */}
-              <div className="h-48 w-full overflow-hidden bg-slate-900 relative">
-                <img 
-                  src={product.image} 
-                  alt={product.title} 
-                  className="w-full h-full object-cover object-center"
-                />
-                <span className="absolute top-3 right-3 bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 text-xs px-2.5 py-1 rounded-full font-medium">
-                  {product.category}
-                </span>
+          <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+            <div>
+              <div className="mb-2">
+                <h3 className="text-xl font-semibold text-white">{product.title}</h3>
               </div>
+              <p className="text-slate-400 text-sm mb-4 leading-relaxed">
+                {product.description}
+              </p>
 
-              {/* Detaylar */}
-              <div className="p-6 flex-1 flex flex-col justify-between">
-                <div>
-                  <div className="flex justify-between items-start mb-2">
-                    <h3 className="text-xl font-semibold text-white">{product.title}</h3>
-                    <span className="text-lg font-bold text-cyan-400">{product.price}</span>
-                  </div>
-                  <p className="text-slate-400 text-sm mb-4">
-                    {product.description}
-                  </p>
-
-                  <ul className="space-y-1.5 mb-6">
-                    {product.features.map((feature, index) => (
-                      <li key={index} className="text-xs text-slate-300 flex items-center">
-                        <span className="text-cyan-400 mr-2">✓</span>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Buton */}
-                <a
-                  href={product.buyUrl || '#contact'}
-                  className="w-full py-3 px-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold text-center transition-colors block"
-                >
-                  Bestill / Be om info
-                </a>
+              <div className="flex flex-wrap gap-2">
+                {product.features.map((feat, idx) => (
+                  <span
+                    key={idx}
+                    className="text-xs bg-slate-800/80 text-slate-300 px-2.5 py-1 rounded-md"
+                  >
+                    • {feat}
+                  </span>
+                ))}
               </div>
             </div>
-          ))}
+          </div>
         </div>
-
-      </div>
-    </section>
+      ))}
+    </div>
   );
-}
+};
+
+export default Products;
