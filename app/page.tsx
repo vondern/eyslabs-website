@@ -1,6 +1,6 @@
 import React from 'react';
 
-export interface Product {
+interface Product {
   id: string;
   title: string;
   category: string;
@@ -9,7 +9,7 @@ export interface Product {
   image: string;
 }
 
-export const PRODUCTS: Product[] = [
+const PRODUCTS: Product[] = [
   {
     id: 'gameboy-watch-stand',
     title: 'Retro Gameboy Apple Watch Lader Stand',
